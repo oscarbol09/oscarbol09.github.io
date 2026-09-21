@@ -1,6 +1,9 @@
 # 🪐 Oscar Darío Madera — Engineering Portfolio
 
-> Portafolio web interactivo de alta artesanía construido con **React 19**, **TypeScript**, **Vite**, **Tailwind CSS**, **Motion.dev** y **Web Audio API**.
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-oscarbol09.github.io-06B6D4?style=for-the-badge&logo=googlechrome&logoColor=white)](https://oscarbol09.github.io/)
+[![GitHub Actions](https://img.shields.io/badge/CI%2FCD-GitHub%20Pages-10B981?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/oscarbol09/oscarbol09.github.io/actions)
+
+> Portafolio web interactivo de alta artesanía en vivo en: **[https://oscarbol09.github.io/](https://oscarbol09.github.io/)**
 
 ---
 
