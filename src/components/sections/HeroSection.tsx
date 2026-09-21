@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Terminal, Copy, Check, Sparkles, Layers, Database, Cpu } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { EyeTrackerMascot } from '../ui/EyeTrackerMascot';
 import { useSoundEffects } from '../../hooks/useSoundEffects';
 
 export const HeroSection: React.FC = () => {
@@ -56,13 +57,13 @@ export const HeroSection: React.FC = () => {
         </motion.div>
       </div>
 
-      {/* Main Impact Hero Content */}
-      <div className="my-auto py-8">
+      {/* Main Impact Hero Content with Interactive Eye-Tracking Mascot */}
+      <div className="my-auto py-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="max-w-4xl"
+          className="lg:col-span-8 max-w-4xl"
         >
           <div className="flex items-center gap-2 font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3">
             <span>Oscar Darío Madera</span>
@@ -117,6 +118,33 @@ export const HeroSection: React.FC = () => {
                 </>
               )}
             </button>
+          </div>
+        </motion.div>
+
+        {/* Right Side: Interactive Eye-Tracker Mascot & Telemetry Widget */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, delay: 0.25 }}
+          className="lg:col-span-4 flex flex-col items-center justify-center"
+        >
+          <div className="relative flex flex-col items-center justify-center rounded-3xl border border-white/10 bg-[#090912]/70 p-6 sm:p-8 backdrop-blur-2xl shadow-2xl hover:border-cyan-500/30 transition-colors w-full max-w-sm">
+            {/* Mascot Pedestal Light */}
+            <div className="pointer-events-none absolute -top-12 h-32 w-32 rounded-full bg-cyan-500/15 blur-3xl" />
+
+            <div className="relative mb-4">
+              <EyeTrackerMascot />
+            </div>
+
+            <div className="text-center mt-2">
+              <div className="font-display text-sm font-bold text-white flex items-center justify-center gap-1.5">
+                <span>Darius AI Companion</span>
+                <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse" />
+              </div>
+              <p className="mt-1 text-[11px] text-zinc-400 font-mono">
+                Siguiendo tus coordenadas de cursor en tiempo real. ¡Haz clic para interactuar!
+              </p>
+            </div>
           </div>
         </motion.div>
       </div>
