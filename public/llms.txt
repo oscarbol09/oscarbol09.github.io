@@ -1,0 +1,20 @@
+# Oscar Darío Madera — AI Systems & Backend Craftsman
+
+> Portfolio y perfil de ingeniería de Oscar Darío Madera (@oscarbol09). Desarrollador enfocado en sistemas backend en Go, arquitecturas RAG híbridas, herramientas de desarrollo de alto rendimiento y visión por computador.
+
+## Perfil Profesional
+- **Nombre**: Oscar Darío Madera
+- **Usuario GitHub**: oscarbol09
+- **Especialidades**: Concurrencia en Go, proxies de bases de datos, RAG híbrido (vectorial + léxico BM25), APIs con FastAPI/Next.js, visión artificial y automatización de escritorio.
+
+## Proyectos Principales
+- **Branchbase** (Go, Cobra, Bubbletea, PostgreSQL, MySQL, SQLite): CLI, TUI y Proxy TCP para database branching local vinculado a ramas Git.
+- **EduRag** (Next.js 16, React 19, Supabase, Tailwind CSS v4, FastAPI): Plataforma SaaS multi-tenant para asistentes RAG docentes con streaming SSE y fórmulas STEM en tiempo real.
+- **ThesisForge** (Python 3.11+, FastAPI, LangChain, PyWebView): Asistente de revisión sistemática de literatura con RAG híbrido y exportación bajo normas APA 7ª edición.
+- **AudioBard** (Python, FFmpeg, Piper ONNX, Edge-TTS, Kokoro, Tauri + Vue 3): Generador de audiolibros multi-voz con atribución de personajes mediante LLMs.
+- **Darius-AI** (Python, CustomTkinter, Gemini API, Whisper, Obsidian): Asistente de escritorio nativo con control por voz y sincronización de memoria a largo plazo en Obsidian.
+- **Loop Computer Vision** (Python, OpenCV, YOLO, ByteTrack, Streamlit): Suite de tracking vehicular con compensación homográfica de cámara.
+
+## Contacto & Enlaces
+- GitHub: https://github.com/oscarbol09
+- Portfolio: https://oscarbol09.github.io/

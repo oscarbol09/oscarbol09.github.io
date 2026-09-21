@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="cyanGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="50%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#8b5cf6" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <!-- Background rounded box -->
+  <rect width="64" height="64" rx="16" fill="#07070a" stroke="rgba(255,255,255,0.12)" stroke-width="2" />
+  
+  <!-- Terminal Prompt / Branchbase Matrix Symbol -->
+  <path d="M18 22L28 32L18 42" stroke="url(#cyanGrad)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)" />
+  <path d="M34 42H46" stroke="#06b6d4" stroke-width="4.5" stroke-linecap="round" />
+  
+  <!-- Subtle accent dot -->
+  <circle cx="48" cy="22" r="3" fill="#10b981" />
+</svg>
