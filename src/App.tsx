@@ -5,6 +5,8 @@ import { HeroSection } from './components/sections/HeroSection';
 import { TerminalSection } from './components/sections/TerminalSection';
 import { BentoProjectsSection } from './components/sections/BentoProjectsSection';
 import { ArchitectureShowcaseSection } from './components/sections/ArchitectureShowcaseSection';
+import { ExperienceTimelineSection } from './components/sections/ExperienceTimelineSection';
+import { QualityMetricsSection } from './components/sections/QualityMetricsSection';
 import { TechRadarSection } from './components/sections/TechRadarSection';
 import { EngineeringStandardsSection } from './components/sections/EngineeringStandardsSection';
 import { ContactSection } from './components/sections/ContactSection';
@@ -25,6 +27,8 @@ export const App: React.FC = () => {
         <TerminalSection />
         <BentoProjectsSection />
         <ArchitectureShowcaseSection />
+        <ExperienceTimelineSection />
+        <QualityMetricsSection />
         <TechRadarSection />
         <EngineeringStandardsSection />
         <ContactSection />

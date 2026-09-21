@@ -10,6 +10,8 @@ const NAV_LINKS = [
   { id: 'terminal', label: 'Terminal CLI' },
   { id: 'proyectos', label: 'Proyectos' },
   { id: 'arquitectura', label: 'Arquitectura' },
+  { id: 'trayectoria', label: 'Trayectoria' },
+  { id: 'fiabilidad', label: 'Fiabilidad' },
   { id: 'stack', label: 'Stack' },
   { id: 'filosofia', label: 'Filosofía' },
   { id: 'contacto', label: 'Contacto' },
