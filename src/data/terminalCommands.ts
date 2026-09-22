@@ -36,7 +36,7 @@ export const TERMINAL_COMMANDS: Record<string, string | string[] | ((args: strin
     '═══════════════════════════════════════════════════════════════════',
     ' OSCAR DARÍO MADERA — FULL-STACK, SYSTEMS & AI CRAFTSMAN',
     '═══════════════════════════════════════════════════════════════════',
-    'Licenciado en Informática (Universidad de Córdoba) & Técnico en Sistemas (SENA).',
+    'Desarrollador Full-Stack & Systems · Licenciado en Informática (Universidad de Córdoba).',
     'Especializado en arquitectura de servicios concurrentes en Go, Java Enterprise (Spring),',
     'frontend en Angular / React 19, persistencia relacional (SQL Server, Postgres) y Cloud (AWS/Azure).',
     '',

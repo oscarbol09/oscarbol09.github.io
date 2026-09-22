@@ -1,11 +1,11 @@
-# Oscar Darío Madera — Full-Stack, Systems & AI Engineer
+# Oscar Darío Madera — Full-Stack & Systems Software Engineer
 
-> Portfolio y perfil de ingeniería de Oscar Darío Madera (@oscarbol09). Licenciado en Informática (Universidad de Córdoba) & Técnico en Sistemas (SENA). Desarrollador Full-Stack y arquitecto de sistemas enfocado en Java Enterprise (Spring Boot / Webflux), Angular, Go, Python, Cloud (AWS, Azure), bases de datos relacionales (Transact-SQL, PostgreSQL) y arquitecturas RAG.
+> Portfolio y perfil de ingeniería de Oscar Darío Madera (@oscarbol09). Desarrollador Full-Stack & Systems y Licenciado en Informática (Universidad de Córdoba). Especializado en Java Enterprise (Spring Boot / Webflux), Angular, Go, Python, Cloud (AWS, Azure), bases de datos relacionales (Transact-SQL, PostgreSQL) y arquitecturas RAG.
 
 ## Perfil Profesional
 - **Nombre**: Oscar Darío Madera Bolaño
 - **Usuario GitHub**: oscarbol09
-- **Educación**: Licenciado en Informática y Medios Audiovisuales (Universidad de Córdoba) | Técnico en Sistemas (SENA)
+- **Educación**: Licenciatura en Informática y Medios Audiovisuales (Universidad de Córdoba)
 - **Especialidades**: Java (Spring Boot, Spring Webflux, JPA/Hibernate), Angular (TypeScript, Bootstrap), Concurrencia en Go (proxies TCP, CLI/TUI), Python (FastAPI, Pytest 230+ tests), Cloud (AWS S3/SQS/EC2, Azure App Services/Blobs), Bases de datos (Transact-SQL SQL Server, PostgreSQL pgvector, SQLite CoW), RAG híbrido y Open Source (OCA/l10n-spain).
 
 ## Proyectos Principales

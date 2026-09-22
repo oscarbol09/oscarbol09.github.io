@@ -71,19 +71,5 @@ export const CAREER_TIMELINE: TimelineMilestone[] = [
       'Liderazgo en proyectos de software académico, desarrollo web full-stack, redes y concurrencia.'
     ],
     technologies: ['Ciencias de la Computación', 'Arquitectura de Software', 'Bases de Datos Relacionales', 'Algoritmia Avanzada', 'Redes & Protocolos TCP/IP']
-  },
-  {
-    period: '2016 — 2018',
-    role: 'Técnico en Sistemas (Graduado)',
-    organization: 'Servicio Nacional de Aprendizaje (SENA)',
-    location: 'Montería, Colombia',
-    badge: 'Formación Técnica',
-    accent: 'emerald',
-    description: 'Fundamentos técnicos en mantenimiento de infraestructura computacional, administración de redes LAN/WAN y soporte de software de sistemas.',
-    achievements: [
-      'Configuración e implementación de topologías de redes y soporte operativo multiplataforma.',
-      'Bases sólidas de lógica computacional, programación estructurada y gestión de bases de datos.'
-    ],
-    technologies: ['Mantenimiento de Sistemas', 'Redes LAN / WAN', 'Sistemas Operativos', 'Lógica de Programación', 'Bases de Datos']
   }
 ];
