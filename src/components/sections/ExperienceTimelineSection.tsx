@@ -38,6 +38,7 @@ export const ExperienceTimelineSection: React.FC = () => {
               <span className={`h-2.5 w-2.5 rounded-full ${
                 item.accent === 'cyan' ? 'bg-cyan-400' :
                 item.accent === 'violet' ? 'bg-violet-400' :
+                item.accent === 'blue' ? 'bg-blue-400' :
                 'bg-emerald-400'
               }`} />
             </div>
@@ -47,6 +48,7 @@ export const ExperienceTimelineSection: React.FC = () => {
               spotlightColor={
                 item.accent === 'cyan' ? 'rgba(6, 182, 212, 0.12)' :
                 item.accent === 'violet' ? 'rgba(139, 92, 246, 0.12)' :
+                item.accent === 'blue' ? 'rgba(59, 130, 246, 0.12)' :
                 'rgba(16, 185, 129, 0.12)'
               }
               className="p-6 sm:p-8"
@@ -57,7 +59,7 @@ export const ExperienceTimelineSection: React.FC = () => {
                   <Badge variant={item.accent} pulse={idx === 0}>
                     {item.badge}
                   </Badge>
-                  {idx === 2 ? (
+                  {idx >= 3 ? (
                     <GraduationCap className="h-4 w-4 text-emerald-400" />
                   ) : (
                     <Award className="h-4 w-4 text-cyan-400" />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Cpu, Terminal, Database, Layout, Activity, Code2 } from 'lucide-react';
+import { Cpu, Terminal, Database, Layout, Activity, Code2, Cloud, ShieldCheck } from 'lucide-react';
 import { SKILL_CATEGORIES } from '../../data/skills';
 import { BentoCard } from '../ui/BentoCard';
 
@@ -10,6 +10,8 @@ export const TechRadarSection: React.FC = () => {
       case 'Cpu': return <Cpu className="h-4 w-4 text-violet-400" />;
       case 'Database': return <Database className="h-4 w-4 text-emerald-400" />;
       case 'Layout': return <Layout className="h-4 w-4 text-blue-400" />;
+      case 'Cloud': return <Cloud className="h-4 w-4 text-cyan-300" />;
+      case 'ShieldCheck': return <ShieldCheck className="h-4 w-4 text-emerald-400" />;
       default: return <Activity className="h-4 w-4 text-amber-400" />;
     }
   };

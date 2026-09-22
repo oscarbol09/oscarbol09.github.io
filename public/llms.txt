@@ -1,11 +1,12 @@
-# Oscar Darío Madera — AI Systems & Backend Craftsman
+# Oscar Darío Madera — Full-Stack, Systems & AI Engineer
 
-> Portfolio y perfil de ingeniería de Oscar Darío Madera (@oscarbol09). Desarrollador enfocado en sistemas backend en Go, arquitecturas RAG híbridas, herramientas de desarrollo de alto rendimiento y visión por computador.
+> Portfolio y perfil de ingeniería de Oscar Darío Madera (@oscarbol09). Licenciado en Informática (Universidad de Córdoba) & Técnico en Sistemas (SENA). Desarrollador Full-Stack y arquitecto de sistemas enfocado en Java Enterprise (Spring Boot / Webflux), Angular, Go, Python, Cloud (AWS, Azure), bases de datos relacionales (Transact-SQL, PostgreSQL) y arquitecturas RAG.
 
 ## Perfil Profesional
-- **Nombre**: Oscar Darío Madera
+- **Nombre**: Oscar Darío Madera Bolaño
 - **Usuario GitHub**: oscarbol09
-- **Especialidades**: Concurrencia en Go, arquitecturas backend en Python & Ruby on Rails, proxies de bases de datos, RAG híbrido (vectorial + léxico BM25), APIs con FastAPI/Next.js, visión artificial y automatización de escritorio.
+- **Educación**: Licenciado en Informática y Medios Audiovisuales (Universidad de Córdoba) | Técnico en Sistemas (SENA)
+- **Especialidades**: Java (Spring Boot, Spring Webflux, JPA/Hibernate), Angular (TypeScript, Bootstrap), Concurrencia en Go (proxies TCP, CLI/TUI), Python (FastAPI, Pytest 230+ tests), Cloud (AWS S3/SQS/EC2, Azure App Services/Blobs), Bases de datos (Transact-SQL SQL Server, PostgreSQL pgvector, SQLite CoW), RAG híbrido y Open Source (OCA/l10n-spain).
 
 ## Proyectos Principales
 - **Branchbase** (Go, Cobra, Bubbletea, PostgreSQL, MySQL, SQLite): CLI, TUI y Proxy TCP para database branching local vinculado a ramas Git.

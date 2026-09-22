@@ -83,42 +83,42 @@ export const PROJECTS: Project[] = [
     status: 'En Desarrollo Activo',
     version: 'v1.0.0-beta',
     languages: ['TypeScript', 'Python'],
-    techStack: ['Next.js 16 App Router', 'React 19', 'Supabase PostgreSQL', 'FastAPI', 'Tailwind CSS v4', 'OpenRouter BYOK', 'SSE Streaming'],
+    techStack: ['Next.js 16 App Router', 'React 19', 'FastAPI', 'Azure Cosmos DB', 'Azure Blob Storage', 'Supabase PostgreSQL', 'Tailwind CSS v4', 'JWT / RBAC', 'SSE Streaming'],
     githubUrl: 'https://github.com/oscarbol09/EduRag',
     installCommand: 'git clone https://github.com/oscarbol09/EduRag.git',
     badgeColor: 'violet',
     highlights: [
-      'Docentes cargan material de clase (PDF/DOCX/MD) y generan chatbots pedagógicos especializados.',
+      'Arquitectura SaaS multi-inquilino en la nube con API RESTful asegurada con JWT y control de acceso RBAC.',
+      'Docentes cargan material de clase (PDF/DOCX/MD) y generan asistentes pedagógicos especializados con Google Gemini.',
       'Streaming de tokens SSE en tiempo real con renderizado de fórmulas STEM en vivo (\\(...\\), $$...$$).',
-      'Arquitectura de costo $0/mes aprovechando Supabase Free Tier, Vercel y OpenRouter BYOK.',
-      'Aislamiento estricto multi-tenant y cifrado Fernet AES-128 para credenciales de usuario.'
+      'Despliegue modular en Azure App Service y Blob Storage con Quality Gates de seguridad.'
     ],
-    description: 'EduRag es un sistema SaaS diseñado para el sector educativo. Permite a docentes universitarios y escolares crear asistentes pedagógicos con base de conocimiento restringida exclusivamente a sus programas de estudio, evitando alucinaciones y facilitando integración mediante iframe seguro en Moodle y Canvas.',
-    architectureDiagram: `[ Docente ] ➔ [ Ingesta de Curriculo ] ➔ [ Chunking Léxico 1500c + Overlap 200c ]
+    description: 'EduRag es una plataforma SaaS multi-tenant diseñada para el sector educativo. Permite a docentes universitarios y escolares crear asistentes pedagógicos con base de conocimiento restringida exclusivamente a sus programas de estudio, evitando alucinaciones y facilitando integración mediante iframe seguro en Moodle y Canvas.',
+    architectureDiagram: `[ Docente ] ➔ [ Ingesta de Curriculo ] ➔ [ Chunking Léxico + Embedding ]
                                                │
                                                ▼
-[ Estudiante ] ➔ [ SSE Token Stream ] ➔ [ Context Builder & OpenRouter ]
+[ Estudiante ] ➔ [ SSE Token Stream ] ➔ [ Context Builder & Gemini AI ]
                                                │
                                                ▼
                                  [ Respuesta STEM + Citas APA ]`,
     technicalDecisions: [
       {
-        title: 'RAG Léxico con Control de Presupuesto',
-        explanation: 'En lugar de costosas bases vectoriales pesadas, se implementó un ranking léxico optimizado en PostgreSQL con ventana de contexto de 60k caracteres, reduciendo costos a $0.'
+        title: 'Arquitectura Multi-Tenant & RBAC',
+        explanation: 'Aislamiento estricto de datos por institución educativa y roles mediante tokens JWT verificados y almacenamiento seguro de credenciales.'
       },
       {
         title: 'Renderizado STEM sin dangerouslySetInnerHTML',
         explanation: 'Parser seguro que procesa expresiones matemáticas y sintaxis Markdown directamente a través de árboles de componentes React 19.'
       },
       {
-        title: 'Políticas RLS en Supabase',
-        explanation: 'Aislamiento multi-tenant a nivel de base de datos donde cada consulta valida automáticamente owner_id y chatbot_id.'
+        title: 'Despliegue en la Nube con Azure',
+        explanation: 'Aprovecha Azure App Services y Blob Storage para persistencia de documentos curriculares con pipelines CI/CD automatizados.'
       }
     ],
     metrics: [
       { label: 'Latencia Primer Token', value: '450ms' },
-      { label: 'Costo Operativo Base', value: '$0/mes' },
-      { label: 'Seguridad Multi-Tenant', value: '100% RLS' }
+      { label: 'Control de Acceso', value: 'RBAC + JWT' },
+      { label: 'Seguridad Multi-Tenant', value: '100% RLS / Isolated' }
     ]
   },
   {
@@ -180,14 +180,14 @@ export const PROJECTS: Project[] = [
     status: 'Activo / Producción',
     version: 'v0.2.0',
     languages: ['Python', 'TypeScript', 'Rust'],
-    techStack: ['Python 3.10+', 'FastAPI/CLI', 'FFmpeg Demuxer', 'Piper TTS (ONNX)', 'Edge-TTS', 'Kokoro TTS', 'Tauri', 'Vue 3', 'SQLite'],
+    techStack: ['Python 3.10+', 'FastAPI/CLI', 'FFmpeg Demuxer', 'Piper TTS (ONNX)', 'Edge-TTS', 'Kokoro TTS', 'Tauri v2', 'Vue 3', 'SQLite', 'Pytest (230+ Tests)', 'GitHub Actions CI/CD'],
     githubUrl: 'https://github.com/oscarbol09/audiobard',
     installCommand: 'pip install audiobard || git clone https://github.com/oscarbol09/audiobard',
     badgeColor: 'blue',
     highlights: [
-      'Convierte libros EPUB, PDF y TXT en audiolibros multi-personaje con reparto de voces automáticas.',
-      'Extracción y análisis de diálogo mediante LLMs con clasificación precisa entre narrador y actores.',
-      'Soporte offline completo con modelos Piper ONNX y Kokoro 82M, además de síntesis Edge cloud.',
+      'Convierte libros EPUB, PDF y TXT en audiolibros multi-personaje con reparto de voces automáticas mediante LLMs.',
+      'Arquitectura desacoplada y reactiva (CLI/GUI) con persistencia relacional en SQLite y caché determinista.',
+      'Suite de testing exhaustiva con más de 230 pruebas automatizadas (unitarias y de integración) en Pytest.',
       'Concatenación streaming con FFmpeg y normalización de sonoridad EBU R128 sin saturar la memoria RAM.'
     ],
     description: 'AudioBard es un pipeline completo que transforma la experiencia de lectura de libros electrónicos. Asigna timbres vocales individuales a cada personaje de la trama y produce archivos MP3/M4B listos para reproductores con capítulos y metadatos Dublin Core intactos.',

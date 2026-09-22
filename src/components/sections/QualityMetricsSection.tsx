@@ -42,6 +42,15 @@ const QUALITY_METRICS: QualityMetric[] = [
     icon: 'Lock'
   },
   {
+    title: 'Suites de Testing & Quality Gates',
+    metric: '230+ Tests',
+    subtitle: 'JUnit, Jest & Pytest Automatizados',
+    description: 'Baterías de pruebas unitarias y de integración herméticas que validan casos límite, concurrencia y prevención estricta de regresiones en CI/CD.',
+    badge: 'Testing & QA',
+    accent: 'cyan',
+    icon: 'ShieldCheck'
+  },
+  {
     title: 'Verificación Anti-Alucinación DOI',
     metric: '99.8%',
     subtitle: 'Filtro CrossRef en ThesisForge',
@@ -56,17 +65,8 @@ const QUALITY_METRICS: QualityMetric[] = [
     subtitle: 'FFmpeg Demuxer en AudioBard',
     description: 'Concatenación de capítulos en streaming O(1) de memoria RAM, evitando desbordamientos incluso en libros de más de 800 páginas.',
     badge: 'Resource Efficiency',
-    accent: 'cyan',
-    icon: 'FileCode'
-  },
-  {
-    title: 'Rendimiento de Renderizado & Cero Jank',
-    metric: '60 FPS',
-    subtitle: 'Aceleración GPU Pura (CLS = 0)',
-    description: 'Física de resortes calibrada y transformaciones calculadas estrictamente sobre la GPU sin provocar recalculo de geometrías de layout.',
-    badge: 'UI Polish',
     accent: 'emerald',
-    icon: 'Gauge'
+    icon: 'FileCode'
   }
 ];
 
