@@ -78,10 +78,11 @@ export const TERMINAL_COMMANDS: Record<string, string | string[] | ((args: strin
   ],
   skills: [
     'CORE SKILLS & TECH STACK:',
-    '  • Lenguajes:    Go (Golang 1.22+), Python 3.10+, TypeScript, SQL, Rust/C',
+    '  • Lenguajes:    Go (Golang 1.22+), Python 3.10+, Ruby, TypeScript, SQL, Rust/C',
+    '  • Frameworks:   Ruby on Rails, FastAPI, Next.js 16, React 19, Tauri, Vue 3',
     '  • IA & RAG:     RAG Híbrido (Dense+BM25), LangChain, Supabase pgvector, Piper ONNX',
     '  • Bases Datos:  PostgreSQL (Template DBs), SQLite WAL/CoW, MySQL, ChromaDB',
-    '  • Frontend/UI:  React 19, Next.js 16, Tailwind CSS v4, Motion.dev, Tauri, CustomTkinter',
+    '  • Frontend/UI:  Tailwind CSS v4, Motion.dev, CustomTkinter, Micro-interacciones',
     '  • Infra/Tools:  Docker, Git Internals, FFmpeg Demuxer, OpenCV, YOLO, Cobra, Bubbletea'
   ],
   standards: [

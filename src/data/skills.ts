@@ -20,6 +20,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     skills: [
       { name: 'Go (Golang 1.22+)', level: 'Experto', context: 'Goroutines, canales, TCP proxies, CLI Cobra, TUI Bubbletea (Branchbase)', primary: true },
       { name: 'Python 3.10+', level: 'Experto', context: 'FastAPI, async I/O, Pydantic v2, pipelines de datos y audio (ThesisForge, AudioBard)', primary: true },
+      { name: 'Ruby on Rails & Ruby', level: 'Avanzado', context: 'Arquitectura MVC, Active Record, APIs RESTful y background jobs' },
       { name: 'Node.js & TypeScript', level: 'Avanzado', context: 'APIs type-safe, SSR, streaming SSE y utilidades de backend' },
       { name: 'C / Rust', level: 'Avanzado', context: 'Integraciones nativas, bindings de audio ONNX y extensiones de bajo nivel' },
     ]
