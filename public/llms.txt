@@ -10,8 +10,9 @@
 
 ## Proyectos Principales
 - **Branchbase** (Go, Cobra, Bubbletea, PostgreSQL, MySQL, SQLite): CLI, TUI y Proxy TCP para database branching local vinculado a ramas Git.
-- **EduRag** (Next.js 16, React 19, Supabase, Tailwind CSS v4, FastAPI): Plataforma SaaS multi-tenant para asistentes RAG docentes con streaming SSE y fórmulas STEM en tiempo real.
-- **ThesisForge** (Python 3.11+, FastAPI, LangChain, PyWebView): Asistente de revisión sistemática de literatura con RAG híbrido y exportación bajo normas APA 7ª edición.
+- **MacroSentinel** (Python, LiteLLM, FRED API, BLS, U.S. Treasury, CFTC, SQLite WAL, Resend, Telegram): Radar autónomo de inteligencia macroeconómica con FinCoT, debate dialéctico en LLMs y despacho multicanal.
+- **EduRag** (Next.js 16, React 19, Azure Cosmos DB, FastAPI, Gemini AI): Plataforma SaaS multi-tenant para asistentes RAG docentes con streaming SSE y fórmulas STEM en tiempo real.
+- **ThesisForge** (Python 3.11+, FastAPI, LangChain, PyWebView, CrossRef): Asistente de revisión sistemática de literatura con RAG híbrido y exportación bajo normas APA 7ª edición.
 - **AudioBard** (Python, FFmpeg, Piper ONNX, Edge-TTS, Kokoro, Tauri + Vue 3): Generador de audiolibros multi-voz con atribución de personajes mediante LLMs.
 - **Darius-AI** (Python, CustomTkinter, Gemini API, Whisper, Obsidian): Asistente de escritorio nativo con control por voz y sincronización de memoria a largo plazo en Obsidian.
 - **Loop Computer Vision** (Python, OpenCV, YOLO, ByteTrack, Streamlit): Suite de tracking vehicular con compensación homográfica de cámara.

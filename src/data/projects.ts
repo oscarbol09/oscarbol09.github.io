@@ -218,6 +218,58 @@ export const PROJECTS: Project[] = [
     ]
   },
   {
+    id: 'macrosentinel',
+    title: 'MacroSentinel',
+    slug: 'macrosentinel',
+    tagline: 'Radar autónomo de inteligencia macroeconómica, series cuantitativas y NLP de bancos centrales con LLMs.',
+    category: 'ai_rag',
+    categoryLabel: 'IA & Inteligencia Cuantitativa',
+    featured: true,
+    status: 'Activo / Producción',
+    version: 'v0.2.0',
+    languages: ['Python'],
+    techStack: ['Python 3.11+', 'LiteLLM / Gemini / OpenAI', 'FRED API', 'BLS API', 'U.S. Treasury API', 'CFTC SODA2', 'SQLite WAL (DLQ)', 'Matplotlib Agg', 'Resend API', 'Telegram Bot API', 'APScheduler'],
+    githubUrl: 'https://github.com/oscarbol09/MacroSentinel',
+    installCommand: 'pip install -e . || macro-sentinel scan --now',
+    badgeColor: 'emerald',
+    highlights: [
+      'Pipeline asíncrono Scatter-Gather con disyuntores (Circuit Breakers) y Dead Letter Queue (DLQ) en SQLite WAL.',
+      'Ingesta continua de indicadores cuantitativos (FRED, Tesoro de EE.UU., BLS, CFTC COT) y actas del FOMC/BCE.',
+      'Razonamiento financiero estructurado: Financial Chain-of-Thought (FinCoT) con debate dialéctico obligatorio (Agente Halcón vs Paloma).',
+      'Despacho multicanal automatizado: Terminal Rich, reportes Markdown MacroPulse, bot de Telegram y digest por correo vía Resend.'
+    ],
+    description: 'MacroSentinel es un radar autónomo de inteligencia macroeconómica que unifica datos dispersos del mercado monetario y laboral. Analiza el tono de los bancos centrales (Hawkish vs Dovish), grafica la curva de rendimientos (10Y-2Y Spread) y genera síntesis de cuadrantes económicos del Investment Clock con fallback determinista.',
+    architectureDiagram: `[ APScheduler / CLI ] ➔ [ Scatter-Gather Ingestion (FRED, BLS, Treasury, COT, FOMC) ]
+                                            │
+                                            ▼
+                           [ Circuit Breaker & Dead Letter Queue (DLQ) ]
+                                            │
+                                            ▼
+                       [ FinCoT LLM Ingestion (Debate Halcón vs Paloma) ]
+                                            │
+                                            ▼
+                 [ Despacho Multicanal: Telegram, Email Resend & Terminal Rich ]`,
+    technicalDecisions: [
+      {
+        title: 'Cómputo en Puntos Básicos (bps) en Tasas',
+        explanation: 'Las variaciones en tipos de interés se computan en Puntos Básicos (Δ × 100) para eliminar distorsiones matemáticas porcentuales en lecturas cercanas a cero.'
+      },
+      {
+        title: 'Pipeline Resiliente con Dead Letter Queue (DLQ)',
+        explanation: 'Si una API externa sufre caídas o límites de cuota, la llamada se aísla en la tabla de cuarentena y el pipeline continúa la síntesis con las fuentes supervivientes.'
+      },
+      {
+        title: 'Debate Dialéctico Antagónico en LLMs',
+        explanation: 'Para neutralizar sesgos complacientes de los modelos de lenguaje, el prompt obliga a enfrentar un Agente Halcón (inflación) contra un Agente Paloma (empleo) antes de formular la síntesis final.'
+      }
+    ],
+    metrics: [
+      { label: 'Fuentes Ingestadas', value: '5 APIs Oficiales' },
+      { label: 'Manejo de Fallos', value: 'DLQ & Circuit Breaker' },
+      { label: 'Formato de Tasas', value: 'Basis Points (bps)' }
+    ]
+  },
+  {
     id: 'darius-ai',
     title: 'Darius-AI',
     slug: 'darius-ai',

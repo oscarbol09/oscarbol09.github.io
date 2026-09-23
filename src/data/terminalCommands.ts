@@ -25,6 +25,7 @@ export const TERMINAL_COMMANDS: Record<string, string | string[] | ((args: strin
     '  projects           - Lista rápida de repositorios y proyectos insignia',
     '  run branchbase     - Simula el inicio del proxy Branchbase en Go',
     '  run edurag         - Inspecciona la topología de EduRag',
+    '  run macrosentinel  - Simula el escaneo macroeconómico de MacroSentinel',
     '  skills             - Vista compacta de tecnologías dominadas',
     '  standards          - Filosofía de desarrollo (Cero AI Slop, ACID)',
     '  contact            - Muestra canales de comunicación directos',
@@ -48,13 +49,15 @@ export const TERMINAL_COMMANDS: Record<string, string | string[] | ((args: strin
     'PROYECTOS DESTACADOS:',
     '  [1] Branchbase (Go 1.22+ / Cobra / Bubbletea / Postgres / SQLite)',
     '      Proxy TCP y branching local de DB por rama de Git. (v0.3.0)',
-    '  [2] EduRag (Next.js 16 / React 19 / Azure Cosmos DB / FastAPI / Gemini AI)',
+    '  [2] MacroSentinel (Python 3.11+ / FRED / BLS / LiteLLM / Resend / Telegram)',
+    '      Radar de inteligencia macroeconómica con FinCoT y debate dialéctico. (v0.2.0)',
+    '  [3] EduRag (Next.js 16 / React 19 / Azure Cosmos DB / FastAPI / Gemini AI)',
     '      SaaS de RAG pedagógico multi-tenant con RBAC y streaming STEM. (v1.0.0-beta)',
-    '  [3] AudioBard (Python / Tauri v2 / Vue 3 / FFmpeg / Piper ONNX / 230+ Tests)',
+    '  [4] AudioBard (Python / Tauri v2 / Vue 3 / FFmpeg / Piper ONNX / 230+ Tests)',
     '      Generador inteligente de audiolibros multi-voz por personaje.',
-    '  [4] ThesisForge (Python / FastAPI / LangChain / CrossRef / APA 7)',
+    '  [5] ThesisForge (Python / FastAPI / LangChain / CrossRef / APA 7)',
     '      Forjador de investigación académica con RAG híbrido y DOI verificado.',
-    '  [5] Loop Computer Vision (Python / OpenCV / YOLO / ByteTrack / Streamlit)',
+    '  [6] Loop Computer Vision (Python / OpenCV / YOLO / ByteTrack / Streamlit)',
     '      Analítica de tráfico con compensación de cámara homográfica.',
     '',
     'Tip: Usa "run <proyecto>" para simular la ejecución de una herramienta.'
@@ -67,6 +70,16 @@ export const TERMINAL_COMMANDS: Record<string, string | string[] | ((args: strin
     '[✓] Clonando template db_main ➔ db_feature_auth-pipeline en 184ms',
     '[✓] Proxy TCP escuchando en :5432 -> Enrutando tráfico a db_feature_auth-pipeline',
     '⚡ Estado: LISTO. Las conexiones de tu app están aisladas en esta rama.'
+  ],
+  'run macrosentinel': [
+    '📈 Inicializando MacroSentinel v0.2.0 Scatter-Gather Ingestion...',
+    '[✓] Ingestando series FRED: T10Y2Y (Curva 10Y-2Y), FEDFUNDS, CPI, PCE, UNRATE, SAHM',
+    '[✓] Consultando U.S. Treasury Fiscal Data y BLS API v2 (Core CPI & Nonfarm)',
+    '[✓] Analizando actas FOMC: Detección de sesgo Hawkish vs Dovish',
+    '[✓] Ejecutando FinCoT: Debate Dialéctico (Agente Halcón vs Agente Paloma)',
+    '[✓] Clasificación Investment Clock: Régimen de Desinflación / Aterrizaje Suave',
+    '[✓] Generando gráfico de curva con Matplotlib Agg ➔ Despachando a Telegram & Email Digest',
+    '⚡ Estado: REPORTE MACROPULSE GENERADO CON ÉXITO.'
   ],
   'run edurag': [
     '🎓 Inicializando pipeline EduRag Context Builder...',
@@ -104,6 +117,7 @@ export const TERMINAL_COMMANDS: Record<string, string | string[] | ((args: strin
     'ENLACES:',
     '  • GitHub Perfil:   https://github.com/oscarbol09',
     '  • Repositorio:     https://github.com/oscarbol09/branchbase',
+    '  • Repositorio:     https://github.com/oscarbol09/MacroSentinel',
     '  • Repositorio:     https://github.com/oscarbol09/EduRag',
     '  • Repositorio:     https://github.com/oscarbol09/thesisforge'
   ],
