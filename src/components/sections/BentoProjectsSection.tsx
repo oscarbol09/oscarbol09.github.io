@@ -11,7 +11,7 @@ import { useSoundEffects } from '../../hooks/useSoundEffects';
 
 const CATEGORIES = [
   { id: 'all', label: 'Todos los Proyectos' },
-  { id: 'systems', label: 'Sistemas & Go' },
+  { id: 'systems', label: 'Sistemas & Infra' },
   { id: 'ai_rag', label: 'IA & RAG' },
   { id: 'desktop_tools', label: 'Desktop & Tools' },
   { id: 'vision', label: 'Visión Artificial' },

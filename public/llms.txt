@@ -10,6 +10,8 @@
 
 ## Proyectos Principales
 - **Branchbase** (Go, Cobra, Bubbletea, PostgreSQL, MySQL, SQLite): CLI, TUI y Proxy TCP para database branching local vinculado a ramas Git.
+- **JVM-MCP** (Java 21, GraalVM Native Image, MCP Protocol, JDK Attach API, HikariCP): Servidor MCP nativo para diagnóstico runtime de la JVM (Thread Dumps, Deadlocks, Connection Leaks) sin reinicios.
+- **A2A-Hub** (Java 21 Virtual Threads, Spring Boot 3.4, LangChain4j, PostgreSQL pgvector, WebSockets): Registro descentralizado de agentes e intermediario de mensajería para el protocolo Agent2Agent (A2A).
 - **MacroSentinel** (Python, LiteLLM, FRED API, BLS, U.S. Treasury, CFTC, SQLite WAL, Resend, Telegram): Radar autónomo de inteligencia macroeconómica con FinCoT, debate dialéctico en LLMs y despacho multicanal.
 - **EduRag** (Next.js 16, React 19, Azure Cosmos DB, FastAPI, Gemini AI): Plataforma SaaS multi-tenant para asistentes RAG docentes con streaming SSE y fórmulas STEM en tiempo real.
 - **ThesisForge** (Python 3.11+, FastAPI, LangChain, PyWebView, CrossRef): Asistente de revisión sistemática de literatura con RAG híbrido y exportación bajo normas APA 7ª edición.

@@ -47,11 +47,11 @@ export const PROJECTS: Project[] = [
     architectureDiagram: `[ Aplicación Cliente (localhost:5432) ]
                    │
                    ▼
-       [ Branchbase TCP Proxy (Go) ]
+        [ Branchbase TCP Proxy (Go) ]
                    │
-    ┌──────────────┴──────────────┐
-    ▼                             ▼
-[ db_main (Git: main) ]     [ db_feat_auth (Git: feat/auth) ]`,
+     ┌──────────────┴──────────────┐
+     ▼                             ▼
+ [ db_main (Git: main) ]     [ db_feat_auth (Git: feat/auth) ]`,
     technicalDecisions: [
       {
         title: 'Proxy TCP con Conexiones de Control Aisladas',
@@ -70,6 +70,161 @@ export const PROJECTS: Project[] = [
       { label: 'Tiempo de Clonado DB', value: '< 250ms' },
       { label: 'Sobrecarga de Proxy', value: '< 1.2ms' },
       { label: 'Motores Soportados', value: '3 (PG/MySQL/SQLite)' }
+    ]
+  },
+  {
+    id: 'jvm-mcp',
+    title: 'JVM-MCP',
+    slug: 'jvm-mcp',
+    tagline: 'Servidor MCP nativo en Java 21 y GraalVM para diagnóstico y perfilado runtime de la JVM sin agentes previos.',
+    category: 'systems',
+    categoryLabel: 'Sistemas & Diagnóstico JVM',
+    featured: true,
+    status: 'Activo / Producción',
+    version: 'v1.0.0',
+    languages: ['Java'],
+    techStack: ['Java 21', 'GraalVM Native Image', 'Model Context Protocol (MCP)', 'JDK Attach API', 'JVM TI / JMX', 'HikariCP', 'Picocli', 'JUnit 5'],
+    githubUrl: 'https://github.com/oscarbol09/jvm-mcp',
+    installCommand: 'jvm-mcp attach <pid> || brew install oscarbol09/tap/jvm-mcp',
+    badgeColor: 'cyan',
+    highlights: [
+      'Conexión zero-intrusion a cualquier proceso JVM local mediante JDK Attach API sin agentes Java previos ni reinicios.',
+      'Detección de ciclos de interbloqueo (Deadlocks), inspección de memoria por regiones (Heap/Non-Heap) y métricas de GC.',
+      'Análisis profundo de connection pools en HikariCP, Tomcat JDBC y Apache DBCP con detección de fugas (leaks).',
+      'Binario standalone compilado con GraalVM Native Image: arranque en < 15ms y consumo < 25MB RAM para Cursor y Claude Desktop.'
+    ],
+    description: 'JVM-MCP es un servidor nativo de Model Context Protocol (MCP) en Java 21 que dota a los asistentes de IA de superpoderes para inspeccionar, diagnosticar y perfilar procesos Java y Spring Boot en tiempo de ejecución. Permite a los agentes diagnosticar bloqueos de hilos, fugas de memoria, cuellos de botella de GC y agotamiento de pools de base de datos directamente desde el IDE.',
+    architectureDiagram: `[ IDE / LLM: Claude Desktop / Cursor ]
+                   │ (JSON-RPC stdio)
+                   ▼
+     [ jvm-mcp (GraalVM Native Binary) ]
+                   │ (JDK Attach API / JMX)
+                   ▼
+[ Target JVM: Spring Boot / Java Service (PID) ]
+ ├── ThreadMXBean ➔ Deadlock Cycle Graph
+ ├── MemoryPoolMXBean ➔ Heap / Non-Heap Analysis
+ └── HikariPoolMXBean ➔ Active / Idle / Leaked Conns`,
+    technicalDecisions: [
+      {
+        title: 'Cero Intrusión con Dynamic Bytecode Attach',
+        explanation: 'Utiliza VirtualMachine.attach(pid) del JDK en tiempo de ejecución, eliminando la necesidad de configurar flags -javaagent o reiniciar microservicios en producción.'
+      },
+      {
+        title: 'GraalVM AOT Compilation con Reflection Configuration',
+        explanation: 'Compilación Ahead-Of-Time con GraalVM Native Image para garantizar tiempos de arranque sub-15ms requeridos por la especificación de inicio stdio de MCP.'
+      },
+      {
+        title: 'Inspección Heurística de Pools de Conexión',
+        explanation: 'Escaners reflexivos para MBeans de HikariCP y Tomcat JDBC que alertan de conexiones bloqueadas antes de que colapsen el microservicio.'
+      }
+    ],
+    metrics: [
+      { label: 'Tiempo de Arranque', value: '< 15ms' },
+      { label: 'Intrusión en Target', value: '0% (Zero-Restart)' },
+      { label: 'Huella de Memoria', value: '< 25 MB' }
+    ]
+  },
+  {
+    id: 'a2a-hub',
+    title: 'A2A-Hub',
+    slug: 'a2a-hub',
+    tagline: 'Registro descentralizado de agentes e intermediario de mensajería para el protocolo Agent2Agent (A2A).',
+    category: 'ai_rag',
+    categoryLabel: 'IA & Protocolos Multi-Agente',
+    featured: true,
+    status: 'Activo / Producción',
+    version: 'v1.0.0',
+    languages: ['Java', 'TypeScript', 'SQL'],
+    techStack: ['Java 21 (Virtual Threads)', 'Spring Boot 3.4', 'LangChain4j', 'PostgreSQL 16 (pgvector)', 'HNSW Indexing', 'Vue 3.5 / Tailwind CSS', 'WebSockets', 'OpenAPI / REST'],
+    githubUrl: 'https://github.com/oscarbol09/a2a-hub',
+    installCommand: 'git clone https://github.com/oscarbol09/a2a-hub.git && ./mvnw spring-boot:run',
+    badgeColor: 'violet',
+    highlights: [
+      'Implementación de referencia del protocolo Agent2Agent (A2A v1.0) para orquestación e interoperabilidad multi-agente.',
+      'Búsqueda semántica de habilidades de agentes con LangChain4j y PostgreSQL pgvector mediante índices HNSW de alta velocidad.',
+      'Canal de telemetría y mensajería en vivo mediante WebSockets y Project Loom (Virtual Threads) para concurrencia I/O masiva.',
+      'Hardening de seguridad empresarial: validación estricta de esquemas de AgentCard y defensas activas contra SSRF y DNS Rebinding.'
+    ],
+    description: 'A2A-Hub es un registro y enrutador descentralizado para agentes de inteligencia artificial autónomos basado en el estándar Agent2Agent (A2A). Permite a los agentes registrar sus AgentCards, publicar sus capacidades y delegar tareas complejas a otros agentes especializados mediante descubrimiento semántico vectorial y mensajería reactiva en tiempo real.',
+    architectureDiagram: `[ Agent Alice ] ➔ POST /api/v1/agents/register (AgentCard JSON)
+                         │
+                         ▼
+        [ A2A-Hub: Spring Boot 3.4 + Virtual Threads ]
+                         │
+        ┌────────────────┼────────────────┐
+        ▼                ▼                ▼
+[ pgvector (HNSW) ]  [ WebSockets Telemetry ]  [ SSRF Safe Proxy ]
+(Búsqueda Semántica)  (Streaming de Mensajes)   (Enrutamiento A2A)`,
+    technicalDecisions: [
+      {
+        title: 'Descubrimiento Semántico con pgvector & HNSW',
+        explanation: 'Transforma las descripciones de capacidades y habilidades de las AgentCards en embeddings densos con LangChain4j para indexación vectorial rápida con índices HNSW en PostgreSQL.'
+      },
+      {
+        title: 'Alta Concurrencia con Virtual Threads (Project Loom)',
+        explanation: 'Aprovecha Java 21 Virtual Threads para manejar miles de conexiones WebSockets y llamadas HTTP salientes a agentes externos sin agotar los hilos del sistema operativo.'
+      },
+      {
+        title: 'Protección Anti-SSRF y Validación de AgentCards',
+        explanation: 'Filtro de seguridad que valida esquemas de AgentCard e inspecciona direcciones IP resueltas para bloquear ataques de falsificación de peticiones del lado del servidor (SSRF).'
+      }
+    ],
+    metrics: [
+      { label: 'Búsqueda Semántica', value: '< 20ms HNSW' },
+      { label: 'Concurrencia I/O', value: 'Virtual Threads' },
+      { label: 'Seguridad', value: 'Anti-SSRF Hardened' }
+    ]
+  },
+  {
+    id: 'macrosentinel',
+    title: 'MacroSentinel',
+    slug: 'macrosentinel',
+    tagline: 'Radar autónomo de inteligencia macroeconómica, series cuantitativas y NLP de bancos centrales con LLMs.',
+    category: 'ai_rag',
+    categoryLabel: 'IA & Inteligencia Cuantitativa',
+    featured: true,
+    status: 'Activo / Producción',
+    version: 'v0.2.0',
+    languages: ['Python'],
+    techStack: ['Python 3.11+', 'LiteLLM / Gemini / OpenAI', 'FRED API', 'BLS API', 'U.S. Treasury API', 'CFTC SODA2', 'SQLite WAL (DLQ)', 'Matplotlib Agg', 'Resend API', 'Telegram Bot API', 'APScheduler'],
+    githubUrl: 'https://github.com/oscarbol09/MacroSentinel',
+    installCommand: 'pip install -e . || macro-sentinel scan --now',
+    badgeColor: 'emerald',
+    highlights: [
+      'Pipeline asíncrono Scatter-Gather con disyuntores (Circuit Breakers) y Dead Letter Queue (DLQ) en SQLite WAL.',
+      'Ingesta continua de indicadores cuantitativos (FRED, Tesoro de EE.UU., BLS, CFTC COT) y actas del FOMC/BCE.',
+      'Razonamiento financiero estructurado: Financial Chain-of-Thought (FinCoT) con debate dialéctico obligatorio (Agente Halcón vs Paloma).',
+      'Despacho multicanal automatizado: Terminal Rich, reportes Markdown MacroPulse, bot de Telegram y digest por correo vía Resend.'
+    ],
+    description: 'MacroSentinel es un radar autónomo de inteligencia macroeconómica que unifica datos dispersos del mercado monetario y laboral. Analiza el tono de los bancos centrales (Hawkish vs Dovish), grafica la curva de rendimientos (10Y-2Y Spread) y genera síntesis de cuadrantes económicos del Investment Clock con fallback determinista.',
+    architectureDiagram: `[ APScheduler / CLI ] ➔ [ Scatter-Gather Ingestion (FRED, BLS, Treasury, COT, FOMC) ]
+                                            │
+                                            ▼
+                           [ Circuit Breaker & Dead Letter Queue (DLQ) ]
+                                            │
+                                            ▼
+                       [ FinCoT LLM Ingestion (Debate Halcón vs Paloma) ]
+                                            │
+                                            ▼
+                 [ Despacho Multicanal: Telegram, Email Resend & Terminal Rich ]`,
+    technicalDecisions: [
+      {
+        title: 'Cómputo en Puntos Básicos (bps) en Tasas',
+        explanation: 'Las variaciones en tipos de interés se computan en Puntos Básicos (Δ × 100) para eliminar distorsiones matemáticas porcentuales en lecturas cercanas a cero.'
+      },
+      {
+        title: 'Pipeline Resiliente con Dead Letter Queue (DLQ)',
+        explanation: 'Si una API externa sufre caídas o límites de cuota, la llamada se aísla en la tabla de cuarentena y el pipeline continúa la síntesis con las fuentes supervivientes.'
+      },
+      {
+        title: 'Debate Dialéctico Antagónico en LLMs',
+        explanation: 'Para neutralizar sesgos complacientes de los modelos de lenguaje, el prompt obliga a enfrentar un Agente Halcón (inflación) contra un Agente Paloma (empleo) antes de formular la síntesis final.'
+      }
+    ],
+    metrics: [
+      { label: 'Fuentes Ingestadas', value: '5 APIs Oficiales' },
+      { label: 'Manejo de Fallos', value: 'DLQ & Circuit Breaker' },
+      { label: 'Formato de Tasas', value: 'Basis Points (bps)' }
     ]
   },
   {
@@ -218,58 +373,6 @@ export const PROJECTS: Project[] = [
     ]
   },
   {
-    id: 'macrosentinel',
-    title: 'MacroSentinel',
-    slug: 'macrosentinel',
-    tagline: 'Radar autónomo de inteligencia macroeconómica, series cuantitativas y NLP de bancos centrales con LLMs.',
-    category: 'ai_rag',
-    categoryLabel: 'IA & Inteligencia Cuantitativa',
-    featured: true,
-    status: 'Activo / Producción',
-    version: 'v0.2.0',
-    languages: ['Python'],
-    techStack: ['Python 3.11+', 'LiteLLM / Gemini / OpenAI', 'FRED API', 'BLS API', 'U.S. Treasury API', 'CFTC SODA2', 'SQLite WAL (DLQ)', 'Matplotlib Agg', 'Resend API', 'Telegram Bot API', 'APScheduler'],
-    githubUrl: 'https://github.com/oscarbol09/MacroSentinel',
-    installCommand: 'pip install -e . || macro-sentinel scan --now',
-    badgeColor: 'emerald',
-    highlights: [
-      'Pipeline asíncrono Scatter-Gather con disyuntores (Circuit Breakers) y Dead Letter Queue (DLQ) en SQLite WAL.',
-      'Ingesta continua de indicadores cuantitativos (FRED, Tesoro de EE.UU., BLS, CFTC COT) y actas del FOMC/BCE.',
-      'Razonamiento financiero estructurado: Financial Chain-of-Thought (FinCoT) con debate dialéctico obligatorio (Agente Halcón vs Paloma).',
-      'Despacho multicanal automatizado: Terminal Rich, reportes Markdown MacroPulse, bot de Telegram y digest por correo vía Resend.'
-    ],
-    description: 'MacroSentinel es un radar autónomo de inteligencia macroeconómica que unifica datos dispersos del mercado monetario y laboral. Analiza el tono de los bancos centrales (Hawkish vs Dovish), grafica la curva de rendimientos (10Y-2Y Spread) y genera síntesis de cuadrantes económicos del Investment Clock con fallback determinista.',
-    architectureDiagram: `[ APScheduler / CLI ] ➔ [ Scatter-Gather Ingestion (FRED, BLS, Treasury, COT, FOMC) ]
-                                            │
-                                            ▼
-                           [ Circuit Breaker & Dead Letter Queue (DLQ) ]
-                                            │
-                                            ▼
-                       [ FinCoT LLM Ingestion (Debate Halcón vs Paloma) ]
-                                            │
-                                            ▼
-                 [ Despacho Multicanal: Telegram, Email Resend & Terminal Rich ]`,
-    technicalDecisions: [
-      {
-        title: 'Cómputo en Puntos Básicos (bps) en Tasas',
-        explanation: 'Las variaciones en tipos de interés se computan en Puntos Básicos (Δ × 100) para eliminar distorsiones matemáticas porcentuales en lecturas cercanas a cero.'
-      },
-      {
-        title: 'Pipeline Resiliente con Dead Letter Queue (DLQ)',
-        explanation: 'Si una API externa sufre caídas o límites de cuota, la llamada se aísla en la tabla de cuarentena y el pipeline continúa la síntesis con las fuentes supervivientes.'
-      },
-      {
-        title: 'Debate Dialéctico Antagónico en LLMs',
-        explanation: 'Para neutralizar sesgos complacientes de los modelos de lenguaje, el prompt obliga a enfrentar un Agente Halcón (inflación) contra un Agente Paloma (empleo) antes de formular la síntesis final.'
-      }
-    ],
-    metrics: [
-      { label: 'Fuentes Ingestadas', value: '5 APIs Oficiales' },
-      { label: 'Manejo de Fallos', value: 'DLQ & Circuit Breaker' },
-      { label: 'Formato de Tasas', value: 'Basis Points (bps)' }
-    ]
-  },
-  {
     id: 'darius-ai',
     title: 'Darius-AI',
     slug: 'darius-ai',
@@ -356,34 +459,6 @@ export const PROJECTS: Project[] = [
     metrics: [
       { label: 'Score ATS Promedio', value: '96/100' },
       { label: 'Ofertas Procesadas', value: '100+ / día' }
-    ]
-  },
-  {
-    id: 'pdf2bard',
-    title: 'pdf2bard',
-    slug: 'pdf2bard',
-    tagline: 'Layout-aware PDF to EPUB converter diseñado para lectores neuronales TTS y AudioBard.',
-    category: 'desktop_tools',
-    categoryLabel: 'Desktop & Automatización',
-    featured: false,
-    status: 'Completado',
-    languages: ['Python'],
-    techStack: ['Python', 'PyMuPDF', 'EbookLib', 'Regex NLP', 'Layout Analysis'],
-    githubUrl: 'https://github.com/oscarbol09/pdf2bard',
-    badgeColor: 'blue',
-    highlights: [
-      'Limpia pies de página, encabezados repetitivos y números de página que arruinan la lectura por voz.',
-      'Reconstruye el flujo tipográfico de párrafos rotos por saltos de línea de PDF.'
-    ],
-    description: 'Herramienta de pre-procesamiento que transforma PDFs técnicos y literarios en archivos EPUB impecables listos para ingesta en sintetizadores TTS neuronales.',
-    technicalDecisions: [
-      {
-        title: 'Análisis Espacial de Cajas de Texto',
-        explanation: 'Filtra coordenadas verticales recurrentes para eliminar encabezados y pies de página sin intervención manual.'
-      }
-    ],
-    metrics: [
-      { label: 'Reducción de Basura TTS', value: '99%' }
     ]
   }
 ];
