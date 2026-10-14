@@ -7,13 +7,13 @@ import { useSoundEffects } from '../../hooks/useSoundEffects';
 
 const NAV_LINKS = [
   { id: 'inicio', label: 'Inicio' },
-  { id: 'terminal', label: 'Terminal CLI' },
-  { id: 'proyectos', label: 'Proyectos' },
   { id: 'arquitectura', label: 'Arquitectura' },
-  { id: 'trayectoria', label: 'Trayectoria' },
-  { id: 'fiabilidad', label: 'Fiabilidad' },
+  { id: 'proyectos', label: 'Proyectos' },
+  { id: 'opensource', label: 'Open Source' },
+  { id: 'terminal', label: 'Terminal CLI' },
   { id: 'stack', label: 'Stack' },
-  { id: 'filosofia', label: 'Filosofía' },
+  { id: 'fiabilidad', label: 'Fiabilidad' },
+  { id: 'trayectoria', label: 'Trayectoria' },
   { id: 'contacto', label: 'Contacto' },
 ];
 
@@ -26,21 +26,31 @@ export const Navbar: React.FC = () => {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
-
-      const sections = NAV_LINKS.map(link => document.getElementById(link.id));
-      const scrollPos = window.scrollY + 200;
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i];
-        if (section && section.offsetTop <= scrollPos) {
-          setActiveSection(NAV_LINKS[i].id);
-          break;
-        }
-      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    // IntersectionObserver para detectar la sección activa sin recalcular geometría en cada tick de scroll
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-20% 0px -60% 0px', threshold: 0.1 }
+    );
+
+    NAV_LINKS.forEach((link) => {
+      const el = document.getElementById(link.id);
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
+    };
   }, []);
 
   const scrollTo = (id: string) => {

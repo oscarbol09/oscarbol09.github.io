@@ -3,7 +3,7 @@ export interface Project {
   title: string;
   slug: string;
   tagline: string;
-  category: 'systems' | 'ai_rag' | 'desktop_tools' | 'vision';
+  category: 'systems' | 'ai_rag' | 'desktop_tools' | 'vision' | 'frontend_craft';
   categoryLabel: string;
   featured: boolean;
   status: 'Activo / Producción' | 'En Desarrollo Activo' | 'Completado';
@@ -459,6 +459,49 @@ export const PROJECTS: Project[] = [
     metrics: [
       { label: 'Score ATS Promedio', value: '96/100' },
       { label: 'Ofertas Procesadas', value: '100+ / día' }
+    ]
+  },
+  {
+    id: 'studio-showcase',
+    title: 'Studio Landing Showcase',
+    slug: 'studio-landing-showcase',
+    tagline: 'Cinco landing pages de estudio con estilos de vanguardia (Neo-Brutalismo, Swiss Bento, Editorial, Glassmorphism, Claymorphism) y 19 tests automatizados.',
+    category: 'frontend_craft',
+    categoryLabel: 'Frontend & UI Craftsmanship',
+    featured: true,
+    status: 'Activo / Producción',
+    version: 'v1.0.0',
+    languages: ['TypeScript', 'CSS'],
+    techStack: ['Next.js 16 App Router', 'React 19', 'TypeScript', 'Tailwind CSS v4', 'Vitest (19 Tests)', 'Motion', 'Web Audio API'],
+    githubUrl: 'https://github.com/oscarbol09/studio-landing-showcase',
+    badgeColor: 'violet',
+    highlights: [
+      'Cinco landing pages con direcciones de arte independientes: Marea (Neo-Brutalismo), Ledgerline (Swiss Bento), Nora Vélez (Editorial), Pasaje (Glassmorphism) y Quieta (Claymorphism).',
+      'Workbench de conciliación contable a 3 vías interactivo con cálculo en tiempo real de discrepancias ASC 830 / IAS 21.',
+      'Simulador de curva de tueste convectiva interactiva (Giesen W6A) y selector sensorial SCA con balance de taza.',
+      'Suite de 19 pruebas automatizadas con Vitest y 0 errores de tipado en TypeScript estricto.'
+    ],
+    description: 'Studio Landing Showcase es una prueba de artesanía de software y diseño de producto front-end. Demuestra cómo una misma base de código puede originar experiencias visuales radicalmente distintas sin depender de plantillas genéricas, integrando telemetría SVG interactiva, generador de paisajes sonoros circadianos con Web Audio API y microinteracciones de alta convicción.',
+    architectureDiagram: `[ Next.js 16 App Router / React 19 ]
+      ├── /landing-a ➔ Marea (Warm Neo-Brutalism & SCA Coffee Cupping)
+      ├── /landing-b ➔ Ledgerline (Swiss Bento & Three-Way Reconciliation)
+      ├── /landing-c ➔ Nora Vélez (Editorial Maximalism & Monograph Layout)
+      ├── /landing-d ➔ Pasaje (Restrained Glassmorphism & FX Margin Audit)
+      └── /landing-e ➔ Quieta (Soft Claymorphism & Web Audio Soundscapes)`,
+    technicalDecisions: [
+      {
+        title: 'Bespoke Design Systems sin Plantillas Genéricas',
+        explanation: 'Cada landing page posee su propio sistema tipográfico (Syne, Newsreader, Instrument Sans, Bricolage Grotesque) y paleta de color estricta.'
+      },
+      {
+        title: 'Clean Screenshot Mode (?clean=1)',
+        explanation: 'Parámetro de URL que oculta el botón flotante del portfolio sin dejar residuos en el DOM para capturas limpias.'
+      }
+    ],
+    metrics: [
+      { label: 'Estilos de UI', value: '5 Direcciones de Arte' },
+      { label: 'Suites de Test', value: '19/19 Vitest Pass' },
+      { label: 'TypeScript', value: '100% Strict Type-Safe' }
     ]
   }
 ];

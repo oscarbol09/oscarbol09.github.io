@@ -8,7 +8,9 @@ export const Footer: React.FC = () => {
   const { playClick } = useSoundEffects();
 
   useEffect(() => {
+    let interval: ReturnType<typeof setInterval>;
     const updateTime = () => {
+      if (document.hidden) return;
       const now = new Date();
       setCurrentTime(
         now.toLocaleTimeString('es-CO', {
@@ -21,7 +23,7 @@ export const Footer: React.FC = () => {
       );
     };
     updateTime();
-    const interval = setInterval(updateTime, 1000);
+    interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
   }, []);
 

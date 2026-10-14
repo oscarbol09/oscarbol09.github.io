@@ -2,15 +2,18 @@ import { useState, useCallback, useEffect } from 'react';
 import { sound } from '../utils/sound';
 
 export function useSoundEffects() {
-  const [muted, setMuted] = useState<boolean>(true);
+  const [muted, setMuted] = useState<boolean>(sound.isMuted());
 
   useEffect(() => {
-    setMuted(sound.isMuted());
+    // Sincronización reactiva mediante patrón Observer a través de todos los componentes
+    const unsubscribe = sound.subscribe((newMuted) => {
+      setMuted(newMuted);
+    });
+    return unsubscribe;
   }, []);
 
   const toggleMute = useCallback(() => {
-    const isNowMuted = sound.toggleMute();
-    setMuted(isNowMuted);
+    sound.toggleMute();
   }, []);
 
   const playClick = useCallback(() => {

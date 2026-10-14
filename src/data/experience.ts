@@ -20,12 +20,13 @@ export const CAREER_TIMELINE: TimelineMilestone[] = [
     accent: 'cyan',
     description: 'Diseño e implementación de herramientas de infraestructura para desarrolladores, soluciones SaaS multi-tenant y colaboración activa en proyectos de código abierto.',
     achievements: [
-      'Desarrollo de Branchbase: Daemon y proxy TCP en Go 1.22+ para database branching local con aprovisionamiento JIT, SQLite CoW y PostgreSQL.',
-      'Arquitectura de EduRag-Platform: SaaS educativo multi-tenant en Next.js/FastAPI con Azure Cosmos DB, Blob Storage, Gemini AI y JWT/RBAC.',
-      'Contribución activa en OCA/l10n-spain (Odoo Community Association): Resolución de incidencias en módulos de facturación e integración fiscal (TicketBAI, AEAT SII, Facturae).',
-      'Desarrollo de AudioBard & ThesisForge: Más de 230 pruebas automatizadas (Pytest, Jest, JUnit) con pipelines CI/CD en GitHub Actions y Quality Gates.'
+      'Desarrollo de Branchbase & JVM-MCP: Infraestructura de desarrollo en Go (TCP proxy, branching local) y servidor nativo MCP en Java 21/GraalVM con Attach API para telemetría y deadlocks.',
+      'Arquitectura de A2A-Hub & EduRag: Registro multi-agente con Project Loom (Virtual Threads) y pgvector HNSW, y SaaS educativo multi-tenant en Next.js 16/FastAPI con Azure Cosmos DB y JWT/RBAC.',
+      'Contribuciones en OCA (Odoo Community Association): PRs aprobados en OCA/l10n-spain (compensación REAGP en CuotaDeducible, filtros fiscales) y OCA/server-tools (trazabilidad de registros archivados en auditlog).',
+      'Contribuciones en Linux & Ecosistema IA: Aportes en omacom/omarchy (parser de especificación XDG desktop y tokenización segura sin eval) y MadsLorentzen/ai-job-search (5 PRs de ingesta, comandos y validación ATS).',
+      'Desarrollo de AudioBard, ThesisForge & Studio Showcase: Pruebas automatizadas herméticas (Pytest, JUnit, Vitest), pipelines CI/CD y Quality Gates estrictos.'
     ],
-    technologies: ['Go (Golang)', 'Python', 'Next.js 16', 'React 19', 'Azure (App Service / Cosmos DB)', 'PostgreSQL', 'FastAPI', 'Docker', 'CI/CD']
+    technologies: ['Go (Golang)', 'Java 21 (Loom)', 'Python', 'Next.js 16 / React 19', 'PostgreSQL (pgvector)', 'Model Context Protocol (MCP)', 'Docker', 'CI/CD']
   },
   {
     period: 'Ene 2023 — Presente',

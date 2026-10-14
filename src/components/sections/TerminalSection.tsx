@@ -3,7 +3,7 @@ import { Terminal as TerminalIcon, CornerDownLeft, Sparkles, Trash2 } from 'luci
 import { TERMINAL_COMMANDS, INITIAL_TERMINAL_HISTORY, TerminalOutput } from '../../data/terminalCommands';
 import { useSoundEffects } from '../../hooks/useSoundEffects';
 
-const QUICK_COMMANDS = ['help', 'projects', 'run branchbase', 'run edurag', 'skills', 'standards', 'contact'];
+const QUICK_COMMANDS = ['help', 'projects', 'branchbase', 'jvm-mcp', 'a2a', 'opensource', 'benchmarks', 'skills', 'contact', 'clear'];
 
 export const TerminalSection: React.FC = () => {
   const [history, setHistory] = useState<TerminalOutput[]>(INITIAL_TERMINAL_HISTORY);
@@ -12,6 +12,8 @@ export const TerminalSection: React.FC = () => {
   const [pastInputs, setPastInputs] = useState<string[]>([]);
   const terminalBottomRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const lastAudioKeyRef = useRef<number>(0);
 
   const { playTerminalKey, playSuccess, playClick } = useSoundEffects();
 
@@ -24,7 +26,7 @@ export const TerminalSection: React.FC = () => {
     if (!trimmed) return;
 
     playSuccess();
-    setPastInputs(prev => [trimmed, ...prev]);
+    setPastInputs(prev => [trimmed, ...prev.filter(p => p !== trimmed).slice(0, 49)]);
     setCmdHistoryIndex(-1);
 
     if (trimmed === 'clear') {
@@ -33,7 +35,10 @@ export const TerminalSection: React.FC = () => {
       return;
     }
 
-    const commandEntry = TERMINAL_COMMANDS[trimmed];
+    // Mitigación estricta de Prototype Pollution DoS: valida pertenencia propia
+    const commandEntry = Object.hasOwn(TERMINAL_COMMANDS, trimmed)
+      ? TERMINAL_COMMANDS[trimmed]
+      : undefined;
 
     let outputResult: string | string[];
     let isError = false;
@@ -49,8 +54,9 @@ export const TerminalSection: React.FC = () => {
       outputResult = `Comando no reconocido: "${trimmed}". Escribe "help" para ver los comandos disponibles.`;
     }
 
+    // Mantener buffer acotado a los últimos 50 registros para prevenir agotamiento de memoria
     setHistory(prev => [
-      ...prev,
+      ...prev.slice(-49),
       {
         command: trimmed,
         output: outputResult,
@@ -61,7 +67,12 @@ export const TerminalSection: React.FC = () => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    playTerminalKey();
+    // Throttle a los eventos de sonido de teclado para evitar long tasks y GC spikes
+    const now = performance.now();
+    if (now - lastAudioKeyRef.current > 60) {
+      playTerminalKey();
+      lastAudioKeyRef.current = now;
+    }
 
     if (e.key === 'Enter') {
       executeCommand(inputVal);
@@ -97,13 +108,13 @@ export const TerminalSection: React.FC = () => {
       <div className="flex flex-col items-start gap-2 mb-8">
         <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-cyan-400">
           <TerminalIcon className="h-4 w-4" />
-          <span>Vibecoder Terminal Playground</span>
+          <span>Systems Diagnostic Terminal / Interactive CLI</span>
         </div>
         <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white">
           Inspección Interactiva de Sistemas
         </h2>
-        <p className="max-w-xl text-sm sm:text-base text-zinc-400">
-          Ejecuta comandos en tiempo real para simular proxies, consultar pipelines de datos o inspeccionar la arquitectura de repositorios.
+        <p className="max-w-xl text-sm sm:text-base text-zinc-400 font-sans">
+          Ejecuta comandos en tiempo real para simular proxies TCP, consultar topologías de datos o inspeccionar diagnósticos de runtime de la JVM.
         </p>
       </div>
 
@@ -116,7 +127,7 @@ export const TerminalSection: React.FC = () => {
             <span className="h-3 w-3 rounded-full bg-amber-500/80 border border-amber-400/40" />
             <span className="h-3 w-3 rounded-full bg-emerald-500/80 border border-emerald-400/40" />
             <span className="ml-3 font-mono text-xs text-zinc-400 font-medium">
-              oscar@madera-terminal:~ (zsh / go1.22)
+              oscar@madera-systems:~ (zsh / go1.22 / java21)
             </span>
           </div>
 
@@ -193,6 +204,7 @@ export const TerminalSection: React.FC = () => {
               onChange={(e) => setInputVal(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder='Escribe "help" o haz clic en los comandos sugeridos...'
+              maxLength={120}
               className="flex-1 bg-transparent text-zinc-100 placeholder:text-zinc-600 outline-none font-mono text-xs sm:text-sm caret-cyan-400"
               autoComplete="off"
               spellCheck="false"

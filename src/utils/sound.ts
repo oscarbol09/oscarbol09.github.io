@@ -3,13 +3,40 @@
 class SoundEngine {
   private ctx: AudioContext | null = null;
   private muted: boolean = false;
+  private suspendTimer: ReturnType<typeof setTimeout> | null = null;
+  private subscribers: Set<(muted: boolean) => void> = new Set();
 
   constructor() {
-    // Check if muted preference is saved in localStorage
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('portfolio_sound_muted');
       this.muted = saved === 'true';
     }
+  }
+
+  public subscribe(callback: (muted: boolean) => void): () => void {
+    this.subscribers.add(callback);
+    callback(this.muted);
+    return () => {
+      this.subscribers.delete(callback);
+    };
+  }
+
+  private notify(): void {
+    this.subscribers.forEach((cb) => cb(this.muted));
+  }
+
+  private scheduleSuspend(): void {
+    if (typeof window === 'undefined') return;
+    if (this.suspendTimer) clearTimeout(this.suspendTimer);
+    this.suspendTimer = setTimeout(() => {
+      if (this.ctx && this.ctx.state === 'running') {
+        this.ctx.suspend().catch((err) => {
+          if (process.env.NODE_ENV !== 'production') {
+            console.warn('[SoundEngine] Context suspend error:', err);
+          }
+        });
+      }
+    }, 3500);
   }
 
   private getContext(): AudioContext | null {
@@ -24,9 +51,14 @@ class SoundEngine {
     }
 
     if (this.ctx && this.ctx.state === 'suspended') {
-      this.ctx.resume().catch(() => {});
+      this.ctx.resume().catch((err) => {
+        if (process.env.NODE_ENV !== 'production') {
+          console.warn('[SoundEngine] Context resume error:', err);
+        }
+      });
     }
 
+    this.scheduleSuspend();
     return this.ctx;
   }
 
@@ -39,6 +71,7 @@ class SoundEngine {
     if (typeof window !== 'undefined') {
       localStorage.setItem('portfolio_sound_muted', String(this.muted));
     }
+    this.notify();
     if (!this.muted) {
       this.playSuccess();
     }
@@ -65,8 +98,10 @@ class SoundEngine {
 
       osc.start(ctx.currentTime);
       osc.stop(ctx.currentTime + 0.04);
-    } catch {
-      // Ignore audio failure
+    } catch (err) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn('[SoundEngine] playClick error:', err);
+      }
     }
   }
 
@@ -90,8 +125,10 @@ class SoundEngine {
 
       osc.start(ctx.currentTime);
       osc.stop(ctx.currentTime + 0.03);
-    } catch {
-      // Ignore audio failure
+    } catch (err) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn('[SoundEngine] playHover error:', err);
+      }
     }
   }
 
@@ -116,8 +153,10 @@ class SoundEngine {
 
       osc.start(ctx.currentTime);
       osc.stop(ctx.currentTime + 0.025);
-    } catch {
-      // Ignore audio failure
+    } catch (err) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn('[SoundEngine] playTerminalKey error:', err);
+      }
     }
   }
 
@@ -145,8 +184,10 @@ class SoundEngine {
         osc.start(now + idx * 0.06);
         osc.stop(now + idx * 0.06 + 0.18);
       });
-    } catch {
-      // Ignore audio failure
+    } catch (err) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn('[SoundEngine] playSuccess error:', err);
+      }
     }
   }
 
@@ -170,8 +211,10 @@ class SoundEngine {
 
       osc.start(ctx.currentTime);
       osc.stop(ctx.currentTime + 0.05);
-    } catch {
-      // Ignore
+    } catch (err) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn('[SoundEngine] playTabSwitch error:', err);
+      }
     }
   }
 }

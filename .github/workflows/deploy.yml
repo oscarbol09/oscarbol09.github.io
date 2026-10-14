@@ -16,7 +16,31 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  quality-gate:
+    name: Rigorous Quality Gate (Types & Tests)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Strict Type Check
+        run: npx tsc --noEmit
+
+      - name: Automated Test Suite
+        run: npm run test:run
+
   build-and-deploy:
+    name: Build and Deploy
+    needs: [quality-gate]
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

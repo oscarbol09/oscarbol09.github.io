@@ -21,18 +21,17 @@ export const INITIAL_TERMINAL_HISTORY: TerminalOutput[] = [
 export const TERMINAL_COMMANDS: Record<string, string | string[] | ((args: string[]) => string | string[])> = {
   help: [
     'Comandos interactivos disponibles:',
-    '  about              - Resumen del perfil profesional y filosofía',
+    '  about              - Resumen del perfil profesional y filosofía de ingeniería',
     '  projects           - Lista rápida de repositorios y proyectos insignia',
-    '  run branchbase     - Simula el inicio del proxy Branchbase en Go',
-    '  run jvm-mcp        - Ejecuta el diagnóstico nativo de runtime con JVM-MCP',
-    '  run a2a-hub        - Simula el registro y ruteo semántico de A2A-Hub',
-    '  run macrosentinel  - Simula el escaneo macroeconómico de MacroSentinel',
-    '  run edurag         - Inspecciona la topología de EduRag',
+    '  branchbase         - Inspecciona la topología de Branchbase (Go TCP Proxy)',
+    '  jvm-mcp            - Ejecuta diagnóstico de runtime con JVM-MCP (GraalVM)',
+    '  a2a                - Inspecciona el broker de agentes A2A-Hub (Java 21 Loom)',
+    '  opensource         - Muestra las contribuciones Open Source clave (OCA, Linux)',
+    '  benchmarks         - Tabla de métricas de rendimiento y latencia',
     '  skills             - Vista compacta de tecnologías dominadas',
     '  standards          - Filosofía de desarrollo (Cero AI Slop, ACID)',
     '  contact            - Muestra canales de comunicación directos',
     '  socials            - Enlaces a GitHub, LinkedIn y repositorios',
-    '  matrix             - Animación temática del sistema',
     '  clear              - Limpia la pantalla de la terminal'
   ],
   about: [
@@ -45,7 +44,7 @@ export const TERMINAL_COMMANDS: Record<string, string | string[] | ((args: strin
     '',
     '• Foco principal: Cero sobre-ingeniería cosmética, 100% arquitectura medible y SOLID.',
     '• Enfoque de código: 230+ tests automatizados herméticos, CI/CD y estricto Quality Gate.',
-    '• Open Source: Contribuidor activo en OCA/l10n-spain (Odoo) y entornos Linux.'
+    '• Open Source: Contribuidor activo en OCA (l10n-spain, server-tools), omarchy (Linux) y a2a-java.'
   ],
   projects: [
     'PROYECTOS DESTACADOS:',
@@ -59,11 +58,13 @@ export const TERMINAL_COMMANDS: Record<string, string | string[] | ((args: strin
     '      Radar de inteligencia macroeconómica con FinCoT y debate dialéctico. (v0.2.0)',
     '  [5] EduRag (Next.js 16 / React 19 / Azure Cosmos DB / FastAPI / Gemini AI)',
     '      SaaS de RAG pedagógico multi-tenant con RBAC y streaming STEM. (v1.0.0-beta)',
-    '  [6] AudioBard (Python / Tauri v2 / Vue 3 / FFmpeg / Piper ONNX / 230+ Tests)',
+    '  [6] Studio Landing Showcase (Next.js 16 / React 19 / Tailwind / 19 Tests)',
+    '      Cinco landing pages con estilos de estudio (Neo-Brutalismo, Swiss Bento, Editorial, Claymorphism).',
+    '  [7] AudioBard (Python / Tauri v2 / Vue 3 / FFmpeg / Piper ONNX / 230+ Tests)',
     '      Generador inteligente de audiolibros multi-voz por personaje.',
-    '  [7] ThesisForge (Python / FastAPI / LangChain / CrossRef / APA 7)',
+    '  [8] ThesisForge (Python / FastAPI / LangChain / CrossRef / APA 7)',
     '      Forjador de investigación académica con RAG híbrido y DOI verificado.',
-    '  [8] Loop Computer Vision (Python / OpenCV / YOLO / ByteTrack / Streamlit)',
+    '  [9] Loop Computer Vision (Python / OpenCV / YOLO / ByteTrack / Streamlit)',
     '      Analítica de tráfico con compensación de cámara homográfica.',
     '',
     'Tip: Usa "run <proyecto>" para simular la ejecución de una herramienta.'
@@ -115,14 +116,22 @@ export const TERMINAL_COMMANDS: Record<string, string | string[] | ((args: strin
     '[✓] Conexión SSE abierta hacia Gemini AI',
     '[✓] Generando respuesta con fórmulas STEM inline y display KaTeX...'
   ],
+  'run studio-showcase': [
+    '🎨 Inicializando Studio Landing Showcase workbench...',
+    '[✓] Cargando módulos de diseño: Marea (Neo-Brutalism), Ledgerline (Swiss Bento), Nora Vélez (Editorial)',
+    '[✓] Ejecutando reconciliación contable a 3 vías: PO #4892 vs Stripe $14.20 fee split resuelto',
+    '[✓] Simulando curva de tueste Giesen W6A: First crack 202°C alcanzado con telemetría SVG',
+    '[✓] Síntesis Web Audio circadiana: Modo nocturno 432 Hz activo',
+    '⚡ Estado: 5 ESTILOS DE ARTE ACTIVOS CON 19/19 TESTS VERIFICADOS.'
+  ],
   skills: [
     'CORE SKILLS & TECH STACK:',
     '  • Lenguajes:    Java 21 (Spring Boot 3.4 / Loom), Go (Golang 1.22+), Python 3.10+, Ruby, TypeScript, C/Rust, SQL',
     '  • Frameworks:   Spring Boot, Spring Webflux, LangChain4j, Angular, React 19, Next.js 16, Ruby on Rails, FastAPI, Tauri, Vue 3',
     '  • Cloud & DBs:  AWS (S3/SQS/EC2), Azure (App Services/Blobs), SQL Server (T-SQL), PostgreSQL (pgvector HNSW), SQLite, Cosmos DB',
     '  • Protocols:    Model Context Protocol (MCP), Agent2Agent (A2A), REST, SOAP, WebSockets, SSE Streaming',
-    '  • Testing & QA: JUnit 5, Jest, Pytest (230+ tests automatizados), CI/CD GitHub Actions, Jenkins, SOLID',
-    '  • Open Source:  OCA/l10n-spain (TicketBAI, AEAT SII, Facturae), omacom/omarchy, Linux Wayland'
+    '  • Testing & QA: JUnit 5, Jest, Vitest, Pytest (230+ tests automatizados), CI/CD GitHub Actions, Jenkins, SOLID',
+    '  • Open Source:  OCA/l10n-spain, OCA/server-tools, omacom/omarchy, MadsLorentzen/ai-job-search, a2a-java'
   ],
   standards: [
     'PRINCIPIOS DE INGENIERÍA:',
@@ -133,26 +142,80 @@ export const TERMINAL_COMMANDS: Record<string, string | string[] | ((args: strin
   ],
   contact: [
     'CANALES DE CONTACTO:',
-    '  • GitHub:    https://github.com/oscarbol09',
-    '  • Email:     omaderabolano@correo.unicordoba.edu.co',
+    '  • GitHub:     https://github.com/oscarbol09',
+    '  • LinkedIn:   https://www.linkedin.com/in/oscarbol09',
+    '  • Email:      dario.oviedo2022@gmail.com',
     '  • Portafolio: https://oscarbol09.github.io/',
     '',
     '¡Siempre abierto a discutir arquitecturas de sistemas, RAG de alto rendimiento o proyectos desafiantes!'
   ],
   socials: [
     'ENLACES:',
-    '  • GitHub Perfil:   https://github.com/oscarbol09',
-    '  • Repositorio JVM-MCP:    https://github.com/oscarbol09/jvm-mcp',
-    '  • Repositorio A2A-Hub:    https://github.com/oscarbol09/a2a-hub',
-    '  • Repositorio Branchbase: https://github.com/oscarbol09/branchbase',
+    '  • GitHub Perfil:      https://github.com/oscarbol09',
+    '  • LinkedIn Perfil:    https://www.linkedin.com/in/oscarbol09',
+    '  • Repositorio JVM-MCP:       https://github.com/oscarbol09/jvm-mcp',
+    '  • Repositorio A2A-Hub:       https://github.com/oscarbol09/a2a-hub',
+    '  • Repositorio Branchbase:    https://github.com/oscarbol09/branchbase',
     '  • Repositorio MacroSentinel: https://github.com/oscarbol09/MacroSentinel',
-    '  • Repositorio EduRag:     https://github.com/oscarbol09/EduRag',
-    '  • Repositorio ThesisForge: https://github.com/oscarbol09/thesisforge'
+    '  • Repositorio EduRag:        https://github.com/oscarbol09/EduRag',
+    '  • Repositorio ThesisForge:   https://github.com/oscarbol09/thesisforge'
   ],
-  matrix: [
-    'Wake up, Neo...',
-    'The Matrix has you.',
-    'Follow the white rabbit. 🐇',
-    'Knock, knock, Neo.'
+  opensource: [
+    'CONTRIBUCIONES OPEN SOURCE CLAVE:',
+    '  [1] OCA/server-tools (Odoo Community Association):',
+    '      Fix: Trazabilidad en auditlog para registros archivados (active=False). (Issue #2719)',
+    '  [2] OCA/l10n-spain (Odoo Community Association):',
+    '      Feat: Compensación agraria REAGP en CuotaDeducible (normativa SII / TicketBAI).',
+    '  [3] a2aproject/a2a-java:',
+    '      SDK Java 21 para el protocolo Agent-to-Agent (A2A Standard, streaming SSE).',
+    '  [4] omacom/omarchy (Arch Linux Wayland):',
+    '      Tokenizador seguro sin eval y parser de especificación XDG .desktop.',
+    '  [5] MadsLorentzen/ai-job-search:',
+    '      5 PRs de ingesta de comandos y validación ATS con Claude Code.'
+  ],
+  benchmarks: [
+    'MÉTRICAS & LATENCIAS VERIFICADAS:',
+    '  • Branchbase DB Clone (PostgreSQL):  < 240ms (CREATE TEMPLATE)',
+    '  • Branchbase TCP Proxy Overhead:     < 1.2ms (Zero packet mutation)',
+    '  • JVM-MCP Startup (GraalVM Native):  < 14.2ms (Zero JVM warmup)',
+    '  • JVM-MCP Memory Footprint:          22.4 MB RSS',
+    '  • A2A-Hub Semantic Discovery:        < 18ms (pgvector HNSW index)',
+    '  • Test Suites Automatizadas:         230+ tests (100% pasando en CI)'
+  ],
+  sysinfo: [
+    'OSCAR MADERA SYSTEMS RUNTIME:',
+    '  • Núcleo:     Go 1.22+, Java 21 LTS (Loom), Python 3.11+, TypeScript',
+    '  • Frontend:   React 19, Angular, Tailwind CSS, Motion',
+    '  • CI/CD:      GitHub Actions (Quality Gate: TSC + Vitest 30/30 PASS)',
+    '  • Seguridad:  CSP Estricta, Zero eval, Anti-Prototype-Pollution'
+  ],
+  branchbase: [
+    '🚀 Branchbase TCP Proxy (Go 1.22+)',
+    '[✓] Inspeccionando .git/HEAD -> ref: refs/heads/feat/auth-v2',
+    '[✓] Localhost:5432 interceptado con wire-protocol de PostgreSQL',
+    '[✓] Conexión mapeada dinámicamente a db_branch_feat_auth_v2',
+    '⚡ Estado: PROXY ACTIVO | LATENCIA: 0.8ms | DRIFT: 0%'
+  ],
+  'jvm-mcp': [
+    '☕ JVM-MCP GraalVM Native Daemon (Java 21)',
+    '[✓] Attach API enlazada al proceso JVM objetivo',
+    '[✓] Heap Analysis: Eden 64MB, Survivor 8MB, Tenured 128MB',
+    '[✓] Thread Deadlock Scanner: 0 deadlocks detectados',
+    '[✓] HikariCP Pool: 10/10 activas, 0 connection leaks',
+    '⚡ Estado: NATIVE MCP DAEMON LISTO | RSS: 21.8 MB'
+  ],
+  a2a: [
+    '🤖 A2A-Hub Multi-Agent Broker (Java 21 Loom)',
+    '[✓] Agentes registrados en el mesh: 4 activos',
+    '[✓] Indexación semántica: pgvector HNSW (coseno > 0.82)',
+    '[✓] Dispatching: Tarea delegada a code-reviewer-agent en 14ms',
+    '⚡ Estado: PROTOCOLO A2A ENLÍNEA'
+  ],
+  'a2a-hub': [
+    '🤖 A2A-Hub Multi-Agent Broker (Java 21 Loom)',
+    '[✓] Agentes registrados en el mesh: 4 activos',
+    '[✓] Indexación semántica: pgvector HNSW (coseno > 0.82)',
+    '[✓] Dispatching: Tarea delegada a code-reviewer-agent en 14ms',
+    '⚡ Estado: PROTOCOLO A2A ENLÍNEA'
   ]
 };

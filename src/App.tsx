@@ -2,12 +2,13 @@ import React from 'react';
 import { LiquidCanvasBackground } from './components/background/LiquidCanvasBackground';
 import { Navbar } from './components/sections/Navbar';
 import { HeroSection } from './components/sections/HeroSection';
-import { TerminalSection } from './components/sections/TerminalSection';
+import { ArchitectureExplorerSection } from './components/sections/ArchitectureExplorerSection';
 import { BentoProjectsSection } from './components/sections/BentoProjectsSection';
-import { ArchitectureShowcaseSection } from './components/sections/ArchitectureShowcaseSection';
-import { ExperienceTimelineSection } from './components/sections/ExperienceTimelineSection';
-import { QualityMetricsSection } from './components/sections/QualityMetricsSection';
+import { OpenSourceWallSection } from './components/sections/OpenSourceWallSection';
+import { TerminalSection } from './components/sections/TerminalSection';
 import { TechRadarSection } from './components/sections/TechRadarSection';
+import { QualityMetricsSection } from './components/sections/QualityMetricsSection';
+import { ExperienceTimelineSection } from './components/sections/ExperienceTimelineSection';
 import { EngineeringStandardsSection } from './components/sections/EngineeringStandardsSection';
 import { ContactSection } from './components/sections/ContactSection';
 import { Footer } from './components/sections/Footer';
@@ -21,15 +22,16 @@ export const App: React.FC = () => {
       {/* Floating Navigation Pill */}
       <Navbar />
 
-      {/* Main Content Sections */}
+      {/* Main Content Sections (Linear/Technical Hierarchy) */}
       <main className="relative z-10 flex flex-col items-center justify-start w-full">
         <HeroSection />
-        <TerminalSection />
+        <ArchitectureExplorerSection />
         <BentoProjectsSection />
-        <ArchitectureShowcaseSection />
-        <ExperienceTimelineSection />
-        <QualityMetricsSection />
+        <OpenSourceWallSection />
+        <TerminalSection />
         <TechRadarSection />
+        <QualityMetricsSection />
+        <ExperienceTimelineSection />
         <EngineeringStandardsSection />
         <ContactSection />
       </main>

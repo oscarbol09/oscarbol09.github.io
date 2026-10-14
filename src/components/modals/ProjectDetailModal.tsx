@@ -31,19 +31,22 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
     };
   }, [project, onClose]);
 
-  const handleCopyCommand = () => {
+  const handleCopyCommand = async () => {
     if (!project?.installCommand) return;
-    navigator.clipboard.writeText(project.installCommand);
-    setCopied(true);
-    playSuccess();
-    setTimeout(() => setCopied(false), 2000);
+    try {
+      await navigator.clipboard.writeText(project.installCommand);
+      setCopied(true);
+      playSuccess();
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.warn('[ProjectDetailModal] Clipboard write failed:', err);
+    }
   };
-
-  if (!project) return null;
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-8 overflow-y-auto">
+      {project && (
+        <div key="project-detail-modal" className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-8 overflow-y-auto">
         {/* Backdrop */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -231,6 +234,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
           </div>
         </motion.div>
       </div>
-    </AnimatePresence>
+    )}
+  </AnimatePresence>
   );
 };

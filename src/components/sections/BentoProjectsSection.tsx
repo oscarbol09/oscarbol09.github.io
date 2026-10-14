@@ -4,7 +4,6 @@ import { Sparkles, Layers } from 'lucide-react';
 import { GithubIcon } from '../ui/GithubIcon';
 import { PROJECTS, Project } from '../../data/projects';
 import { BentoCard } from '../ui/BentoCard';
-import { Parallax3DCard } from '../ui/Parallax3DCard';
 import { Badge } from '../ui/Badge';
 import { ProjectDetailModal } from '../modals/ProjectDetailModal';
 import { useSoundEffects } from '../../hooks/useSoundEffects';
@@ -14,6 +13,7 @@ const CATEGORIES = [
   { id: 'systems', label: 'Sistemas & Infra' },
   { id: 'ai_rag', label: 'IA & RAG' },
   { id: 'desktop_tools', label: 'Desktop & Tools' },
+  { id: 'frontend_craft', label: 'Frontend & UI Craft' },
   { id: 'vision', label: 'Visión Artificial' },
 ];
 
@@ -193,13 +193,7 @@ export const BentoProjectsSection: React.FC = () => {
               onClick={() => handleOpenDetail(project)}
               className={isSpanTwo ? 'lg:col-span-2' : ''}
             >
-              {project.featured ? (
-                <Parallax3DCard intensity={6}>
-                  {CardContent}
-                </Parallax3DCard>
-              ) : (
-                CardContent
-              )}
+              {CardContent}
             </div>
           );
         })}

@@ -1,34 +1,24 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Terminal, Copy, Check, Sparkles, Layers, Database, Cpu } from 'lucide-react';
-import confetti from 'canvas-confetti';
-import { EyeTrackerMascot } from '../ui/EyeTrackerMascot';
+import { Copy, Check, Sparkles, Network, Database, Cpu, GitPullRequest } from 'lucide-react';
+import { HeroTelemetryHUD } from '../ui/HeroTelemetryHUD';
 import { useSoundEffects } from '../../hooks/useSoundEffects';
 
 export const HeroSection: React.FC = () => {
   const { playClick, playSuccess } = useSoundEffects();
   const [copied, setCopied] = useState(false);
 
-  const email = 'omaderabolano@correo.unicordoba.edu.co';
+  const email = 'dario.oviedo2022@gmail.com';
 
-  const handleCopyEmail = (e: React.MouseEvent) => {
-    navigator.clipboard.writeText(email);
-    setCopied(true);
-    playSuccess();
-
-    // Trigger subtle celebratory confetti burst
-    const rect = (e.target as HTMLElement).getBoundingClientRect();
-    confetti({
-      particleCount: 35,
-      spread: 50,
-      origin: {
-        x: (rect.left + rect.width / 2) / window.innerWidth,
-        y: (rect.top + rect.height / 2) / window.innerHeight,
-      },
-      colors: ['#06b6d4', '#3b82f6', '#8b5cf6', '#10b981'],
-    });
-
-    setTimeout(() => setCopied(false), 2500);
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopied(true);
+      playSuccess();
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.warn('[HeroSection] Clipboard write failed:', err);
+    }
   };
 
   const scrollTo = (id: string) => {
@@ -52,64 +42,75 @@ export const HeroSection: React.FC = () => {
             <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
           </span>
           <span className="font-mono text-xs font-medium text-emerald-300">
-            Disponible para Ingeniería de Alto Impacto & Sistemas
+            Disponible para Ingeniería de Sistemas, Backend & Arquitectura Distribuida
           </span>
         </motion.div>
       </div>
 
-      {/* Main Impact Hero Content with Interactive Eye-Tracking Mascot */}
-      <div className="my-auto py-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      {/* Main Impact Hero Content */}
+      <div className="my-auto py-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="lg:col-span-8 max-w-4xl"
+          className="lg:col-span-7 max-w-3xl"
         >
           <div className="flex items-center gap-2 font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3">
             <span>Oscar Darío Madera</span>
-            <span>//</span>
+            <span className="text-zinc-600">//</span>
             <span className="text-zinc-400">@oscarbol09</span>
+            <span className="text-zinc-600">//</span>
+            <span className="text-zinc-400">Systems & Backend Craftsman</span>
           </div>
 
           <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.05]">
             Sistemas Concurrentes,{' '}
             <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-violet-400 bg-clip-text text-transparent">
-              Arquitecturas RAG
+              Infraestructura & RAG
             </span>{' '}
-            & Alta Artesanía.
+            de Alta Precisión.
           </h1>
 
-          <p className="mt-6 max-w-2xl text-base sm:text-lg text-zinc-300 leading-relaxed">
-            Construyo infraestructura de desarrollo en <strong className="text-white font-medium">Go</strong> (proxies TCP, branching de bases de datos), pipelines <strong className="text-white font-medium">RAG híbridos</strong> en Python, aplicaciones multi-tenant en <strong className="text-white font-medium">Next.js 16</strong> y visión artificial con <strong className="text-white font-medium">cero código cosmético</strong>.
+          <p className="mt-6 max-w-2xl text-base sm:text-lg text-zinc-300 leading-relaxed font-sans">
+            Ingeniero de software especializado en infraestructura de desarrollo en <strong className="text-white font-medium">Go 1.22+</strong> (proxies TCP, branching dinámico de bases de datos), servicios nativos en <strong className="text-white font-medium">Java 21 / GraalVM</strong> con Model Context Protocol (MCP), orquestación de agentes con <strong className="text-white font-medium">Loom & pgvector</strong>, y contribuciones activas en <strong className="text-white font-medium">OCA (Odoo)</strong>.
           </p>
 
           {/* Action CTAs */}
           <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
             <button
               onClick={() => scrollTo('proyectos')}
-              className="group inline-flex items-center gap-2 rounded-xl border border-cyan-400/40 bg-cyan-500/15 px-5 py-3 font-mono text-xs sm:text-sm font-semibold text-cyan-300 backdrop-blur-md transition-all duration-200 hover:border-cyan-300 hover:bg-cyan-500/25 hover:shadow-glow-cyan active:scale-[0.98]"
+              className="group inline-flex items-center gap-2 rounded-xl border border-cyan-400/40 bg-cyan-500/15 px-5 py-3 font-mono text-xs sm:text-sm font-semibold text-cyan-300 backdrop-blur-md transition-all duration-200 hover:border-cyan-300 hover:bg-cyan-500/25 active:scale-[0.98]"
             >
               <Sparkles className="h-4 w-4 transition-transform group-hover:rotate-12" />
               <span>Explorar Proyectos Insignia</span>
             </button>
 
             <button
-              onClick={() => scrollTo('terminal')}
+              onClick={() => scrollTo('arquitectura')}
               className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-5 py-3 font-mono text-xs sm:text-sm font-semibold text-zinc-300 backdrop-blur-md transition-all duration-200 hover:border-white/25 hover:bg-white/10 hover:text-white active:scale-[0.98]"
             >
-              <Terminal className="h-4 w-4 text-violet-400" />
-              <span>Abrir Terminal CLI</span>
+              <Network className="h-4 w-4 text-violet-400" />
+              <span>Deep-Dive Arquitectura</span>
+            </button>
+
+            <button
+              onClick={() => scrollTo('opensource')}
+              className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-3 font-mono text-xs sm:text-sm font-semibold text-zinc-400 backdrop-blur-md transition-all duration-200 hover:border-emerald-500/40 hover:text-emerald-300 active:scale-[0.98]"
+            >
+              <GitPullRequest className="h-4 w-4 text-emerald-400" />
+              <span>Open Source</span>
             </button>
 
             <button
               onClick={handleCopyEmail}
               className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-xs sm:text-sm text-zinc-400 transition-all duration-200 hover:border-white/20 hover:bg-white/5 hover:text-white active:scale-[0.98]"
               title="Copiar correo al portapapeles"
+              aria-label="Copiar correo al portapapeles"
             >
               {copied ? (
                 <>
                   <Check className="h-4 w-4 text-emerald-400" />
-                  <span className="text-emerald-300">¡Email copiado!</span>
+                  <span className="text-emerald-300 font-medium">¡Email copiado!</span>
                 </>
               ) : (
                 <>
@@ -121,31 +122,14 @@ export const HeroSection: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* Right Side: Interactive Eye-Tracker Mascot & Telemetry Widget */}
+        {/* Right Side: Professional Live Telemetry HUD */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.25 }}
-          className="lg:col-span-4 flex flex-col items-center justify-center"
+          className="lg:col-span-5 flex flex-col items-center justify-center w-full"
         >
-          <div className="relative flex flex-col items-center justify-center rounded-3xl border border-white/10 bg-[#090912]/70 p-6 sm:p-8 backdrop-blur-2xl shadow-2xl hover:border-cyan-500/30 transition-colors w-full max-w-sm">
-            {/* Mascot Pedestal Light */}
-            <div className="pointer-events-none absolute -top-12 h-32 w-32 rounded-full bg-cyan-500/15 blur-3xl" />
-
-            <div className="relative mb-4">
-              <EyeTrackerMascot />
-            </div>
-
-            <div className="text-center mt-2">
-              <div className="font-display text-sm font-bold text-white flex items-center justify-center gap-1.5">
-                <span>Darius AI Companion</span>
-                <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse" />
-              </div>
-              <p className="mt-1 text-[11px] text-zinc-400 font-mono">
-                Siguiendo tus coordenadas de cursor en tiempo real. ¡Haz clic para interactuar!
-              </p>
-            </div>
-          </div>
+          <HeroTelemetryHUD />
         </motion.div>
       </div>
 
@@ -171,28 +155,28 @@ export const HeroSection: React.FC = () => {
             <Cpu className="h-4 w-4" />
           </div>
           <div>
-            <div className="font-mono text-xs font-bold text-white">EduRag & Thesis</div>
-            <div className="text-[11px] text-zinc-400">RAG Híbrido & Multi-Tenant</div>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-3.5 backdrop-blur-sm">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-500/10 text-blue-400">
-            <Layers className="h-4 w-4" />
-          </div>
-          <div>
-            <div className="font-mono text-xs font-bold text-white">AudioBard</div>
-            <div className="text-[11px] text-zinc-400">TTS Multi-Voz con LLMs</div>
+            <div className="font-mono text-xs font-bold text-white">JVM-MCP</div>
+            <div className="text-[11px] text-zinc-400">Model Context Protocol en Java 21</div>
           </div>
         </div>
 
         <div className="flex items-center gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-3.5 backdrop-blur-sm">
           <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-400">
-            <Terminal className="h-4 w-4" />
+            <Network className="h-4 w-4" />
           </div>
           <div>
-            <div className="font-mono text-xs font-bold text-white">Memoria Obsidian</div>
-            <div className="text-[11px] text-zinc-400">Arquitectura Simbiótica</div>
+            <div className="font-mono text-xs font-bold text-white">A2A-Hub</div>
+            <div className="text-[11px] text-zinc-400">Multi-Agent Mesh en Loom</div>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-3.5 backdrop-blur-sm">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-400">
+            <GitPullRequest className="h-4 w-4" />
+          </div>
+          <div>
+            <div className="font-mono text-xs font-bold text-white">Open Source</div>
+            <div className="text-[11px] text-zinc-400">OCA & Linux Upstream PRs</div>
           </div>
         </div>
       </motion.div>

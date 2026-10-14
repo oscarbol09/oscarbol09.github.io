@@ -15,6 +15,7 @@ export const LiquidCanvasBackground: React.FC = () => {
     let mouseY = window.innerHeight / 2;
     let targetMouseX = mouseX;
     let targetMouseY = mouseY;
+    let isRunning = true;
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -42,7 +43,7 @@ export const LiquidCanvasBackground: React.FC = () => {
       ctx.fillStyle = '#040406';
       ctx.fillRect(0, 0, width, height);
 
-      // Gradient 1: Organic Cyan / Teal Glow (top left area, reacts gently to mouse)
+      // Gradient 1: Organic Cyan / Teal Glow
       const grad1X = width * 0.35 + Math.sin(time * 0.8) * 120 + (mouseX - width / 2) * 0.04;
       const grad1Y = height * 0.25 + Math.cos(time * 0.7) * 90 + (mouseY - height / 2) * 0.04;
       const grad1 = ctx.createRadialGradient(
@@ -53,11 +54,11 @@ export const LiquidCanvasBackground: React.FC = () => {
         grad1Y,
         Math.max(width * 0.45, 380)
       );
-      grad1.addColorStop(0, 'rgba(6, 182, 212, 0.12)'); // Cyan glow
+      grad1.addColorStop(0, 'rgba(6, 182, 212, 0.12)');
       grad1.addColorStop(0.5, 'rgba(6, 182, 212, 0.04)');
       grad1.addColorStop(1, 'rgba(4, 4, 6, 0)');
 
-      // Gradient 2: Organic Electric Violet / Indigo Glow (center right)
+      // Gradient 2: Organic Electric Violet / Indigo Glow
       const grad2X = width * 0.75 + Math.cos(time * 0.6) * 140 - (mouseX - width / 2) * 0.03;
       const grad2Y = height * 0.6 + Math.sin(time * 0.9) * 110 - (mouseY - height / 2) * 0.03;
       const grad2 = ctx.createRadialGradient(
@@ -68,11 +69,11 @@ export const LiquidCanvasBackground: React.FC = () => {
         grad2Y,
         Math.max(width * 0.5, 420)
       );
-      grad2.addColorStop(0, 'rgba(139, 92, 246, 0.09)'); // Violet glow
+      grad2.addColorStop(0, 'rgba(139, 92, 246, 0.09)');
       grad2.addColorStop(0.5, 'rgba(59, 130, 246, 0.03)');
       grad2.addColorStop(1, 'rgba(4, 4, 6, 0)');
 
-      // Gradient 3: Subtle Emerald / Cyan Accent (bottom center)
+      // Gradient 3: Subtle Emerald / Cyan Accent
       const grad3X = width * 0.4 + Math.sin(time * 0.5) * 100;
       const grad3Y = height * 0.85 + Math.cos(time * 0.6) * 80;
       const grad3 = ctx.createRadialGradient(
@@ -83,7 +84,7 @@ export const LiquidCanvasBackground: React.FC = () => {
         grad3Y,
         Math.max(width * 0.4, 350)
       );
-      grad3.addColorStop(0, 'rgba(16, 185, 129, 0.06)'); // Emerald
+      grad3.addColorStop(0, 'rgba(16, 185, 129, 0.06)');
       grad3.addColorStop(1, 'rgba(4, 4, 6, 0)');
 
       ctx.fillStyle = grad1;
@@ -95,31 +96,61 @@ export const LiquidCanvasBackground: React.FC = () => {
       ctx.fillStyle = grad3;
       ctx.fillRect(0, 0, width, height);
 
-      // Subtle fine grid overlay
+      // Fine grid overlay batched in a single native path to minimize draw calls
       ctx.strokeStyle = 'rgba(255, 255, 255, 0.015)';
       ctx.lineWidth = 1;
       const gridSize = 48;
+
+      ctx.beginPath();
       for (let x = 0; x < width; x += gridSize) {
-        ctx.beginPath();
         ctx.moveTo(x, 0);
         ctx.lineTo(x, height);
-        ctx.stroke();
       }
       for (let y = 0; y < height; y += gridSize) {
-        ctx.beginPath();
         ctx.moveTo(0, y);
         ctx.lineTo(width, y);
-        ctx.stroke();
       }
+      ctx.stroke();
 
-      animationFrameId = requestAnimationFrame(render);
+      if (isRunning) {
+        animationFrameId = requestAnimationFrame(render);
+      }
     };
+
+    const isTouch = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
+    const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // En pantallas táctiles o con preferencia de reducción de movimiento, pintamos un único fotograma estático
+    if (isTouch || prefersReducedMotion) {
+      isRunning = false;
+      render();
+      return () => {
+        window.removeEventListener('resize', resize);
+        window.removeEventListener('mousemove', onMouseMove);
+      };
+    }
+
+    // Pausar el render loop cuando la pestaña del navegador está oculta
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        isRunning = false;
+        cancelAnimationFrame(animationFrameId);
+      } else {
+        if (!isRunning) {
+          isRunning = true;
+          animationFrameId = requestAnimationFrame(render);
+        }
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     render();
 
     return () => {
+      isRunning = false;
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
