@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Network, GitBranch, Cpu, Database, Zap, ShieldCheck, CheckCircle2, ArrowRight } from 'lucide-react';
-import { BentoCard } from '../ui/BentoCard';
 import { Badge } from '../ui/Badge';
 import { useSoundEffects } from '../../hooks/useSoundEffects';
 
@@ -11,7 +10,7 @@ interface SystemConfig {
   id: ArchitectureSystem;
   title: string;
   badge: string;
-  badgeColor: 'cyan' | 'violet' | 'emerald';
+  badgeColor: 'lime' | 'violet' | 'emerald' | 'cyan';
   headline: string;
   subheadline: string;
   description: string;
@@ -26,7 +25,7 @@ const SYSTEMS: Record<ArchitectureSystem, SystemConfig> = {
     id: 'branchbase',
     title: 'Branchbase (Go TCP Proxy)',
     badge: 'Go 1.22+ · TCP Wire Proxy',
-    badgeColor: 'cyan',
+    badgeColor: 'lime',
     headline: 'Enrutamiento Transparente por Rama de Git',
     subheadline: 'Zero Schema Drift · Copy-on-Write Databases',
     description: 'Cuando cambias de rama en Git (git checkout feat/auth), tu aplicación sigue conectada a localhost:5432. El proxy intercepta los paquetes de handshake, inspecciona el HEAD de Git y redirige el tráfico a la base de datos clonada de esa característica sin mutar paquetes.',
@@ -34,7 +33,7 @@ const SYSTEMS: Record<ArchitectureSystem, SystemConfig> = {
       {
         title: 'Clonado Rápido PostgreSQL',
         desc: 'Uso de CREATE DATABASE WITH TEMPLATE para réplicas instantáneas en < 240ms.',
-        icon: <Zap className="h-4 w-4 text-cyan-400" />
+        icon: <Zap className="h-4 w-4 text-[#dfff52]" />
       },
       {
         title: 'Conexiones de Control Aisladas',
@@ -44,7 +43,7 @@ const SYSTEMS: Record<ArchitectureSystem, SystemConfig> = {
       {
         title: 'Zero Packet Mutation',
         desc: 'Inspección de wire protocol en fase de handshake; una vez establecida la sesión, el socket hace splice directo a velocidad nativa.',
-        icon: <Database className="h-4 w-4 text-blue-400" />
+        icon: <Database className="h-4 w-4 text-[#dfff52]" />
       }
     ],
     metrics: [
@@ -53,7 +52,7 @@ const SYSTEMS: Record<ArchitectureSystem, SystemConfig> = {
       { label: 'Motores Soportados', value: 'PG / MySQL / SQLite' }
     ],
     steps: [
-      { label: '1. App Cliente', detail: 'Conecta a localhost:5432 como si fuera una base normal.', accentColor: 'text-cyan-400' },
+      { label: '1. App Cliente', detail: 'Conecta a localhost:5432 como si fuera una base normal.', accentColor: 'text-[#dfff52]' },
       { label: '2. Branchbase Proxy', detail: 'Lee .git/HEAD en memoria y detecta la rama activa.', accentColor: 'text-white' },
       { label: '3. DB Multiplexer', detail: 'Conmuta el socket TCP a la base de datos de esa rama.', accentColor: 'text-emerald-400' }
     ],
@@ -89,7 +88,7 @@ const SYSTEMS: Record<ArchitectureSystem, SystemConfig> = {
       {
         title: 'Auditoría de Connection Pools',
         desc: 'Mapeo de métricas activas/idle de HikariCP y Tomcat JDBC con detección de fugas de conexión (leaks).',
-        icon: <Cpu className="h-4 w-4 text-cyan-400" />
+        icon: <Cpu className="h-4 w-4 text-[#dfff52]" />
       }
     ],
     metrics: [
@@ -130,7 +129,7 @@ const SYSTEMS: Record<ArchitectureSystem, SystemConfig> = {
       {
         title: 'Búsqueda Semántica HNSW',
         desc: 'Consultas de similitud de coseno en sub-20ms sobre pgvector para emparejar tareas con habilidades de agentes.',
-        icon: <Database className="h-4 w-4 text-cyan-400" />
+        icon: <Database className="h-4 w-4 text-[#dfff52]" />
       },
       {
         title: 'Verificación Criptográfica A2A',
@@ -146,7 +145,7 @@ const SYSTEMS: Record<ArchitectureSystem, SystemConfig> = {
     steps: [
       { label: '1. Agente emisor', detail: 'Envía requerimiento de tarea en lenguaje natural o contrato.', accentColor: 'text-emerald-400' },
       { label: '2. A2A Vector Broker', detail: 'Genera embedding y consulta pgvector HNSW en < 18ms.', accentColor: 'text-white' },
-      { label: '3. Peer Routing', detail: 'Establece canal directo P2P con el agente más calificado.', accentColor: 'text-cyan-400' }
+      { label: '3. Peer Routing', detail: 'Establece canal directo P2P con el agente más calificado.', accentColor: 'text-[#dfff52]' }
     ],
     diagramCode: `[ Agente Emisor (Planner / Task Owner) ]
                │ (A2A Task Request)
@@ -173,32 +172,35 @@ export const ArchitectureExplorerSection: React.FC = () => {
   const current = SYSTEMS[activeSystem];
 
   return (
-    <section id="arquitectura" className="relative w-full py-20 px-6 sm:px-8 lg:px-16 max-w-7xl mx-auto scroll-mt-20">
-      {/* Section Header */}
-      <div className="flex flex-col items-start gap-2 mb-10">
-        <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-cyan-400">
-          <Network className="h-4 w-4" />
-          <span>Deep-Dive de Arquitectura & Concurrencia</span>
+    <section id="arquitectura" className="relative w-full py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-20 border-t border-white/10">
+      {/* Editorial Section Header */}
+      <div className="flex flex-col items-start gap-3 mb-12">
+        <div className="flex items-center gap-3">
+          <span className="font-mono text-base font-bold text-[#dfff52]">03</span>
+          <span className="h-px w-8 bg-[#dfff52]/40" />
+          <span className="font-mono text-xs uppercase tracking-widest text-zinc-400">
+            Deep-Dive de Arquitectura &amp; Concurrencia
+          </span>
         </div>
-        <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white">
-          Ingeniería de Sistemas & Tríada Insignia
+        <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#f2efe8]">
+          Ingeniería de Sistemas &amp; Tríada Insignia
         </h2>
-        <p className="max-w-2xl text-sm sm:text-base text-zinc-400">
+        <p className="max-w-2xl text-sm sm:text-base text-zinc-400 leading-relaxed font-sans">
           Inspección de las arquitecturas de red, proxies de bases de datos y orquestación de agentes que impulsan mis desarrollos más complejos.
         </p>
 
         {/* System Tab Selector */}
-        <div className="mt-4 flex flex-wrap items-center gap-2 rounded-2xl border border-white/10 bg-[#07070a] p-1.5 backdrop-blur-xl">
+        <div className="mt-6 flex flex-wrap items-center gap-2 rounded-full border border-white/10 bg-[#0b0c10] p-1.5">
           <button
             onClick={() => handleSelectSystem('branchbase')}
-            className={`relative rounded-xl px-4 py-2 font-mono text-xs font-semibold transition-all ${
-              activeSystem === 'branchbase' ? 'text-cyan-300' : 'text-zinc-400 hover:text-zinc-200'
+            className={`relative rounded-full px-4 py-2 font-mono text-xs font-semibold transition-all ${
+              activeSystem === 'branchbase' ? 'text-[#060709] font-bold' : 'text-zinc-400 hover:text-white hover:bg-white/5'
             }`}
           >
             {activeSystem === 'branchbase' && (
               <motion.div
                 layoutId="active-system-pill"
-                className="absolute inset-0 rounded-xl bg-cyan-500/15 border border-cyan-500/30"
+                className="absolute inset-0 rounded-full bg-[#dfff52]"
                 transition={{ type: 'spring', stiffness: 450, damping: 32 }}
               />
             )}
@@ -210,14 +212,14 @@ export const ArchitectureExplorerSection: React.FC = () => {
 
           <button
             onClick={() => handleSelectSystem('jvm-mcp')}
-            className={`relative rounded-xl px-4 py-2 font-mono text-xs font-semibold transition-all ${
-              activeSystem === 'jvm-mcp' ? 'text-violet-300' : 'text-zinc-400 hover:text-zinc-200'
+            className={`relative rounded-full px-4 py-2 font-mono text-xs font-semibold transition-all ${
+              activeSystem === 'jvm-mcp' ? 'text-[#060709] font-bold' : 'text-zinc-400 hover:text-white hover:bg-white/5'
             }`}
           >
             {activeSystem === 'jvm-mcp' && (
               <motion.div
                 layoutId="active-system-pill"
-                className="absolute inset-0 rounded-xl bg-violet-500/15 border border-violet-500/30"
+                className="absolute inset-0 rounded-full bg-[#dfff52]"
                 transition={{ type: 'spring', stiffness: 450, damping: 32 }}
               />
             )}
@@ -229,14 +231,14 @@ export const ArchitectureExplorerSection: React.FC = () => {
 
           <button
             onClick={() => handleSelectSystem('a2a-hub')}
-            className={`relative rounded-xl px-4 py-2 font-mono text-xs font-semibold transition-all ${
-              activeSystem === 'a2a-hub' ? 'text-emerald-300' : 'text-zinc-400 hover:text-zinc-200'
+            className={`relative rounded-full px-4 py-2 font-mono text-xs font-semibold transition-all ${
+              activeSystem === 'a2a-hub' ? 'text-[#060709] font-bold' : 'text-zinc-400 hover:text-white hover:bg-white/5'
             }`}
           >
             {activeSystem === 'a2a-hub' && (
               <motion.div
                 layoutId="active-system-pill"
-                className="absolute inset-0 rounded-xl bg-emerald-500/15 border border-emerald-500/30"
+                className="absolute inset-0 rounded-full bg-[#dfff52]"
                 transition={{ type: 'spring', stiffness: 450, damping: 32 }}
               />
             )}
@@ -254,10 +256,11 @@ export const ArchitectureExplorerSection: React.FC = () => {
           key={activeSystem}
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -12 }}
           transition={{ duration: 0.2 }}
         >
-          <BentoCard className="border-white/10 bg-[#09090f]/90 p-6 sm:p-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div className="rounded-2xl border border-white/10 bg-[#0b0c10] p-6 sm:p-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
               {/* Left Column: Technical Narrative & Invariants */}
               <div className="lg:col-span-6 flex flex-col justify-between space-y-6">
                 <div>
@@ -270,7 +273,7 @@ export const ArchitectureExplorerSection: React.FC = () => {
                     </span>
                   </div>
 
-                  <h3 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                  <h3 className="font-display text-2xl sm:text-3xl font-bold text-[#f2efe8] tracking-tight">
                     {current.headline}
                   </h3>
 
@@ -281,12 +284,12 @@ export const ArchitectureExplorerSection: React.FC = () => {
 
                 {/* Engineering Invariants List */}
                 <div className="space-y-3.5 border-t border-white/10 pt-5">
-                  <div className="font-mono text-xs font-semibold uppercase tracking-wider text-zinc-400">
-                    Invariantes de Arquitectura & Resiliencia:
+                  <div className="font-mono text-xs font-bold uppercase tracking-wider text-zinc-400">
+                    Invariantes de Arquitectura &amp; Resiliencia:
                   </div>
                   {current.invariants.map((inv, idx) => (
                     <div key={idx} className="flex items-start gap-3">
-                      <div className="mt-0.5 shrink-0 rounded-md bg-white/5 p-1 border border-white/10">
+                      <div className="mt-0.5 shrink-0 rounded-lg bg-white/5 p-1.5 border border-white/10">
                         {inv.icon}
                       </div>
                       <div>
@@ -305,7 +308,7 @@ export const ArchitectureExplorerSection: React.FC = () => {
                 <div className="grid grid-cols-3 gap-3 border-t border-white/10 pt-4">
                   {current.metrics.map((m, idx) => (
                     <div key={idx} className="rounded-xl border border-white/5 bg-white/[0.02] p-3 text-center">
-                      <div className="font-mono text-xs sm:text-sm font-bold text-white">
+                      <div className="font-mono text-xs sm:text-sm font-bold text-[#dfff52]">
                         {m.value}
                       </div>
                       <div className="text-[10px] text-zinc-400 font-mono mt-0.5">
@@ -317,13 +320,13 @@ export const ArchitectureExplorerSection: React.FC = () => {
               </div>
 
               {/* Right Column: Visual Flow & Topology Diagram */}
-              <div className="lg:col-span-6 flex flex-col justify-between rounded-xl border border-white/10 bg-[#040407] p-5 sm:p-6 font-mono text-xs overflow-x-auto">
+              <div className="lg:col-span-6 flex flex-col justify-between rounded-xl border border-white/10 bg-[#060709] p-5 sm:p-6 font-mono text-xs overflow-x-auto">
                 <div>
                   <div className="flex items-center justify-between text-zinc-400 border-b border-white/10 pb-3 mb-4">
-                    <span className="uppercase tracking-wider font-semibold">
-                      Diagrama de Topología & Tráfico
+                    <span className="uppercase tracking-wider font-semibold text-xs text-zinc-300">
+                      Diagrama de Topología &amp; Tráfico
                     </span>
-                    <span className="text-emerald-400 font-bold">
+                    <span className="text-[#dfff52] font-bold text-[11px] bg-[#dfff52]/10 px-2 py-0.5 rounded border border-[#dfff52]/20">
                       VERIFICADO 100%
                     </span>
                   </div>
@@ -331,8 +334,8 @@ export const ArchitectureExplorerSection: React.FC = () => {
                   {/* Flow Steps */}
                   <div className="space-y-2 mb-6">
                     {current.steps.map((st, idx) => (
-                      <div key={idx} className="flex items-start gap-2.5 rounded-lg border border-white/5 bg-white/[0.02] p-2.5">
-                        <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-400 mt-0.5" />
+                      <div key={idx} className="flex items-start gap-2.5 rounded-lg border border-white/5 bg-[#0b0c10] p-2.5">
+                        <CheckCircle2 className="h-4 w-4 shrink-0 text-[#dfff52] mt-0.5" />
                         <div>
                           <span className={`font-bold ${st.accentColor}`}>{st.label}:</span>{' '}
                           <span className="text-zinc-300">{st.detail}</span>
@@ -342,7 +345,7 @@ export const ArchitectureExplorerSection: React.FC = () => {
                   </div>
 
                   {/* ASCII Topology Diagram */}
-                  <div className="rounded-lg border border-white/10 bg-[#020204] p-4 text-cyan-300/90 whitespace-pre font-mono text-[11px] leading-relaxed overflow-x-auto shadow-inner">
+                  <div className="rounded-lg border border-white/10 bg-[#090a0e] p-4 text-[#dfff52] whitespace-pre font-mono text-[11px] leading-relaxed overflow-x-auto shadow-inner">
                     {current.diagramCode}
                   </div>
                 </div>
@@ -353,7 +356,7 @@ export const ArchitectureExplorerSection: React.FC = () => {
                     href="https://github.com/oscarbol09"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-cyan-400 hover:text-cyan-300 transition-colors"
+                    className="inline-flex items-center gap-1 text-[#dfff52] hover:underline transition-colors"
                   >
                     <span>Ver implementación en GitHub</span>
                     <ArrowRight className="h-3 w-3" />
@@ -361,7 +364,7 @@ export const ArchitectureExplorerSection: React.FC = () => {
                 </div>
               </div>
             </div>
-          </BentoCard>
+          </div>
         </motion.div>
       </AnimatePresence>
     </section>

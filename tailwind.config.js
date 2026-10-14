@@ -8,12 +8,22 @@ export default {
   theme: {
     extend: {
       colors: {
+        brand: {
+          lime: '#dfff52',
+          'lime-bright': '#caff33',
+          'lime-muted': '#b0d12e',
+          dark: '#060709',
+          surface: '#0b0c10',
+          elevated: '#111218',
+          bone: '#f2efe8',
+          muted: '#8e919a',
+        },
         obsidian: {
           950: '#040406',
-          900: '#07070a',
-          850: '#0d0d12',
-          800: '#13131a',
-          700: '#1c1c26',
+          900: '#060709',
+          850: '#0b0c10',
+          800: '#111218',
+          700: '#1b1d24',
         },
         accent: {
           cyan: '#06b6d4',
@@ -21,14 +31,14 @@ export default {
           indigo: '#6366f1',
           violet: '#8b5cf6',
           emerald: '#10b981',
-          lime: '#84cc16',
+          lime: '#dfff52',
           amber: '#f59e0b',
         }
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-        mono: ['JetBrains Mono', 'Fira Code', 'Menlo', 'monospace'],
-        display: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        mono: ['"JetBrains Mono"', '"Fira Code"', 'Menlo', 'monospace'],
+        display: ['"Space Grotesk"', 'Inter', 'system-ui', 'sans-serif'],
       },
       animation: {
         'pulse-subtle': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',

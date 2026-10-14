@@ -2,7 +2,7 @@ import React from 'react';
 
 interface BadgeProps {
   children: React.ReactNode;
-  variant?: 'cyan' | 'blue' | 'violet' | 'emerald' | 'amber' | 'neutral';
+  variant?: 'lime' | 'cyan' | 'blue' | 'violet' | 'emerald' | 'amber' | 'neutral';
   pulse?: boolean;
   className?: string;
 }
@@ -14,6 +14,7 @@ export const Badge: React.FC<BadgeProps> = ({
   className = '',
 }) => {
   const variantStyles = {
+    lime: 'bg-[#dfff52]/10 text-[#dfff52] border-[#dfff52]/30',
     cyan: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/25',
     blue: 'bg-blue-500/10 text-blue-300 border-blue-500/25',
     violet: 'bg-violet-500/10 text-violet-300 border-violet-500/25',
@@ -23,6 +24,7 @@ export const Badge: React.FC<BadgeProps> = ({
   };
 
   const pulseStyles = {
+    lime: 'bg-[#dfff52]',
     cyan: 'bg-cyan-400',
     blue: 'bg-blue-400',
     violet: 'bg-violet-400',

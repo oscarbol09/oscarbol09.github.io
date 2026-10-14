@@ -12,7 +12,7 @@ export const BentoCard: React.FC<BentoCardProps> = ({
   children,
   className = '',
   spotlight = true,
-  spotlightColor = 'rgba(6, 182, 212, 0.12)',
+  spotlightColor = 'rgba(223, 255, 82, 0.12)',
   onClick,
 }) => {
   const cardRef = useRef<HTMLDivElement | null>(null);
@@ -29,12 +29,9 @@ export const BentoCard: React.FC<BentoCardProps> = ({
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onClick={onClick}
-      className={`group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-[#09090e]/80 p-6 backdrop-blur-xl transition-[border-color,box-shadow,transform] duration-300 hover:border-white/20 hover:shadow-[0_12px_36px_-8px_rgba(0,0,0,0.6)] ${className}`}
+      className={`group relative overflow-hidden rounded-2xl border border-white/10 bg-[#0b0c10] p-6 sm:p-7 transition-all duration-300 hover:border-[#dfff52]/40 hover:shadow-[0_16px_40px_-12px_rgba(0,0,0,0.7)] ${className}`}
     >
-      {/* Subtle Inner Top Highlight Edge */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-
-      {/* Dynamic Cursor Spotlight via CSS variables (Zero React Re-renders on mousemove) */}
+      {/* Dynamic Cursor Spotlight via CSS variables */}
       {spotlight && (
         <div
           className="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300 group-hover:opacity-100"
@@ -43,9 +40,6 @@ export const BentoCard: React.FC<BentoCardProps> = ({
           }}
         />
       )}
-
-      {/* Subtle Ambient Hover Gradient */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
       {/* Content wrapper */}
       <div className="relative z-10 h-full flex flex-col justify-between">

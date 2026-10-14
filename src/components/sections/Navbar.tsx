@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
-import { Menu, X, Sparkles } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Menu, X, ArrowDownToLine, ExternalLink } from 'lucide-react';
 import { GithubIcon } from '../ui/GithubIcon';
 import { SoundToggle } from '../ui/SoundToggle';
+import { LiveClock } from '../ui/LiveClock';
 import { useSoundEffects } from '../../hooks/useSoundEffects';
 
-const NAV_LINKS = [
-  { id: 'inicio', label: 'Inicio' },
-  { id: 'arquitectura', label: 'Arquitectura' },
-  { id: 'proyectos', label: 'Proyectos' },
-  { id: 'opensource', label: 'Open Source' },
-  { id: 'terminal', label: 'Terminal CLI' },
-  { id: 'stack', label: 'Stack' },
-  { id: 'fiabilidad', label: 'Fiabilidad' },
-  { id: 'trayectoria', label: 'Trayectoria' },
-  { id: 'contacto', label: 'Contacto' },
+const NAV_SECTIONS = [
+  { id: 'inicio', num: '00', label: 'Inicio' },
+  { id: 'perfil', num: '01', label: 'Perfil' },
+  { id: 'proyectos', num: '02', label: 'Proyectos' },
+  { id: 'arquitectura', num: '03', label: 'Arquitectura' },
+  { id: 'opensource', num: '04', label: 'Open Source' },
+  { id: 'terminal', num: '05', label: 'Terminal' },
+  { id: 'contacto', num: '06', label: 'Contacto' },
 ];
 
 export const Navbar: React.FC = () => {
@@ -25,12 +24,11 @@ export const Navbar: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 25);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
 
-    // IntersectionObserver para detectar la sección activa sin recalcular geometría en cada tick de scroll
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -39,10 +37,10 @@ export const Navbar: React.FC = () => {
           }
         });
       },
-      { rootMargin: '-20% 0px -60% 0px', threshold: 0.1 }
+      { rootMargin: '-25% 0px -55% 0px', threshold: 0.1 }
     );
 
-    NAV_LINKS.forEach((link) => {
+    NAV_SECTIONS.forEach((link) => {
       const el = document.getElementById(link.id);
       if (el) observer.observe(el);
     });
@@ -65,108 +63,184 @@ export const Navbar: React.FC = () => {
 
   return (
     <>
-      <header className="fixed top-4 inset-x-0 z-40 flex justify-center px-4 pointer-events-none">
-        <nav
-          aria-label="Navegación principal"
-          className={`pointer-events-auto flex items-center justify-between gap-2 sm:gap-4 rounded-full border border-white/10 px-3 py-1.5 backdrop-blur-2xl transition-all duration-300 ${
-            isScrolled ? 'bg-[#07070a]/90 shadow-2xl shadow-black/80' : 'bg-[#07070a]/70'
-          }`}
-        >
-          {/* Logo / Brand Indicator */}
-          <button
-            onClick={() => scrollTo('inicio')}
-            className="flex items-center gap-2 rounded-full pl-2 pr-3 py-1 font-mono text-xs font-bold text-white transition-opacity hover:opacity-80"
-          >
-            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 text-[10px] text-white">
-              &gt;_
-            </span>
-            <span className="hidden md:inline tracking-tight">Oscar Madera</span>
-          </button>
+      <header
+        className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+          isScrolled
+            ? 'bg-[#060709]/90 backdrop-blur-xl border-b border-white/10 shadow-xl shadow-black/50 py-3'
+            : 'bg-transparent py-4 sm:py-5'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+          {/* Left Brand Identity */}
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => scrollTo('inicio')}
+              className="group flex items-center gap-2.5 text-left focus:outline-none"
+              aria-label="Ir a inicio"
+            >
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#dfff52] font-mono text-xs font-bold text-[#060709] transition-transform duration-200 group-hover:scale-105">
+                OD
+              </span>
+              <div className="hidden sm:flex flex-col">
+                <span className="font-display text-xs sm:text-sm font-bold tracking-tight text-[#f2efe8] group-hover:text-white transition-colors">
+                  Oscar Darío Madera
+                </span>
+                <span className="font-mono text-[10px] text-zinc-400">
+                  Systems &amp; Backend Engineer
+                </span>
+              </div>
+            </button>
 
-          {/* Desktop Nav Links with active layoutId indicator */}
-          <div className="hidden lg:flex items-center gap-1 rounded-full bg-white/[0.03] p-1 border border-white/5">
-            {NAV_LINKS.map((link) => {
+            {/* Live Clock & Location Pill */}
+            <div className="hidden xl:flex items-center pl-3 border-l border-white/10">
+              <LiveClock />
+            </div>
+          </div>
+
+          {/* Desktop Center Navigation Pills */}
+          <nav
+            aria-label="Navegación principal"
+            className="hidden md:flex items-center gap-1 rounded-full border border-white/10 bg-[#0b0c10]/80 p-1 backdrop-blur-md"
+          >
+            {NAV_SECTIONS.map((link) => {
               const isActive = activeSection === link.id;
               return (
                 <button
                   key={link.id}
                   onClick={() => scrollTo(link.id)}
-                  className={`relative rounded-full px-3.5 py-1 text-xs font-medium transition-colors ${
-                    isActive ? 'text-cyan-300' : 'text-zinc-400 hover:text-zinc-200'
+                  className={`relative flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[11px] font-medium transition-all duration-200 ${
+                    isActive
+                      ? 'text-[#060709] font-bold'
+                      : 'text-zinc-400 hover:text-[#f2efe8] hover:bg-white/5'
                   }`}
                 >
                   {isActive && (
                     <motion.div
                       layoutId="active-nav-pill"
-                      className="absolute inset-0 rounded-full bg-cyan-500/15 border border-cyan-500/30"
-                      transition={{ type: 'spring', stiffness: 450, damping: 32 }}
+                      className="absolute inset-0 rounded-full bg-[#dfff52]"
+                      transition={{ type: 'spring', stiffness: 450, damping: 35 }}
                     />
                   )}
+                  <span className={`relative z-10 ${isActive ? 'text-[#060709]' : 'text-zinc-400'}`}>
+                    {link.num}
+                  </span>
                   <span className="relative z-10">{link.label}</span>
                 </button>
               );
             })}
-          </div>
+          </nav>
 
-          {/* Actions: Sound, GitHub & Contact */}
-          <div className="flex items-center gap-1.5 sm:gap-2">
+          {/* Right Action Cluster */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Direct CV Download Link */}
+            <a
+              href="./CV_Oscar_Dario_Madera.pdf"
+              download="CV_Oscar_Dario_Madera.pdf"
+              className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-zinc-200 transition-all duration-200 hover:border-[#dfff52] hover:bg-[#dfff52] hover:text-[#060709] active:scale-95"
+              title="Descargar Curriculum Vitae en Formato Harvard"
+            >
+              <ArrowDownToLine className="h-3.5 w-3.5" />
+              <span className="hidden sm:inline">CV</span>
+            </a>
+
+            {/* Audio Haptic Toggle */}
             <SoundToggle />
 
+            {/* GitHub Profile */}
             <a
               href="https://github.com/oscarbol09"
               target="_blank"
               rel="noopener noreferrer"
-              onClick={playClick}
+              className="hidden sm:flex h-8 w-8 items-center justify-center rounded-full border border-white/15 bg-white/5 text-zinc-300 transition-all duration-200 hover:border-[#dfff52] hover:bg-[#dfff52] hover:text-[#060709]"
               title="Perfil de GitHub @oscarbol09"
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-zinc-300 backdrop-blur-md transition-all duration-200 hover:border-white/30 hover:bg-white/10 hover:text-white"
+              aria-label="GitHub @oscarbol09"
             >
               <GithubIcon className="h-4 w-4" />
             </a>
 
-            <button
-              onClick={() => scrollTo('contacto')}
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3.5 py-1.5 font-mono text-xs font-semibold text-cyan-300 backdrop-blur-md transition-all hover:border-cyan-400/60 hover:bg-cyan-500/20 active:scale-95"
-            >
-              <Sparkles className="h-3 w-3" />
-              <span>Contactar</span>
-            </button>
-
-            {/* Mobile hamburger button */}
+            {/* Mobile Hamburger Toggle */}
             <button
               onClick={() => {
                 playClick();
                 setMobileMenuOpen(!mobileMenuOpen);
               }}
-              aria-label="Abrir menú"
-              className="flex lg:hidden h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-zinc-300 transition-colors hover:bg-white/10"
+              className="md:hidden flex h-9 w-9 items-center justify-center rounded-lg border border-white/15 bg-white/5 text-zinc-200 transition-colors hover:border-[#dfff52]"
+              aria-label={mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+              aria-expanded={mobileMenuOpen}
             >
-              {mobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
-        </nav>
+        </div>
       </header>
 
       {/* Mobile Drawer Menu */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 z-30 flex flex-col bg-[#07070a]/95 pt-24 px-6 backdrop-blur-3xl lg:hidden">
-          <div className="flex flex-col gap-3">
-            {NAV_LINKS.map((link) => (
-              <button
-                key={link.id}
-                onClick={() => scrollTo(link.id)}
-                className={`flex items-center justify-between rounded-xl border border-white/5 p-4 text-left font-display text-base font-medium transition-all ${
-                  activeSection === link.id
-                    ? 'border-cyan-500/40 bg-cyan-500/10 text-cyan-300'
-                    : 'text-zinc-300 hover:bg-white/5'
-                }`}
-              >
-                <span>{link.label}</span>
-                <span className="font-mono text-xs text-zinc-500">#0{NAV_LINKS.indexOf(link) + 1}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-x-0 top-[65px] z-40 bg-[#060709]/98 border-b border-white/10 px-6 py-6 backdrop-blur-2xl md:hidden"
+          >
+            <div className="flex flex-col gap-2">
+              <div className="pb-3 mb-2 border-b border-white/10 flex items-center justify-between">
+                <LiveClock />
+                <span className="inline-flex items-center gap-1.5 font-mono text-[10px] text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                  Disponible
+                </span>
+              </div>
+
+              {NAV_SECTIONS.map((link) => {
+                const isActive = activeSection === link.id;
+                return (
+                  <button
+                    key={link.id}
+                    onClick={() => scrollTo(link.id)}
+                    className={`flex items-center justify-between rounded-xl px-4 py-3 font-mono text-sm transition-colors text-left ${
+                      isActive
+                        ? 'bg-[#dfff52] text-[#060709] font-bold'
+                        : 'text-zinc-300 hover:bg-white/5'
+                    }`}
+                  >
+                    <span className="flex items-center gap-3">
+                      <span className={isActive ? 'text-[#060709]' : 'text-zinc-400'}>
+                        {link.num}
+                      </span>
+                      <span>{link.label}</span>
+                    </span>
+                    <span className="text-xs opacity-60">→</span>
+                  </button>
+                );
+              })}
+
+              <div className="pt-4 mt-2 border-t border-white/10 flex items-center justify-between">
+                <a
+                  href="./CV_Oscar_Dario_Madera.pdf"
+                  download="CV_Oscar_Dario_Madera.pdf"
+                  className="flex items-center gap-2 font-mono text-xs text-[#dfff52] hover:underline"
+                >
+                  <ArrowDownToLine className="h-4 w-4" />
+                  <span>Descargar CV (Harvard)</span>
+                </a>
+
+                <a
+                  href="https://github.com/oscarbol09"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 font-mono text-xs text-zinc-400 hover:text-white"
+                >
+                  <GithubIcon className="h-3.5 w-3.5" />
+                  <span>GitHub</span>
+                  <ExternalLink className="h-3 w-3" />
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };

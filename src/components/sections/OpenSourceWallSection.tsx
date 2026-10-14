@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { GitPullRequest, ExternalLink, ShieldCheck, GitMerge } from 'lucide-react';
+import { ExternalLink, ShieldCheck, GitMerge, ArrowUpRight } from 'lucide-react';
 import { OPEN_SOURCE_CONTRIBUTIONS, OpenSourceContribution } from '../../data/openSource';
 import { BentoCard } from '../ui/BentoCard';
 import { Badge } from '../ui/Badge';
@@ -10,17 +10,20 @@ export const OpenSourceWallSection: React.FC = () => {
   const { playHover } = useSoundEffects();
 
   return (
-    <section id="opensource" className="relative w-full py-20 px-6 sm:px-8 lg:px-16 max-w-7xl mx-auto scroll-mt-20">
-      {/* Section Header */}
-      <div className="flex flex-col items-start gap-2 mb-12">
-        <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-emerald-400">
-          <GitPullRequest className="h-4 w-4" />
-          <span>Open Source Ecosystem Contributions</span>
+    <section id="opensource" className="relative w-full py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-20 border-t border-white/10">
+      {/* Editorial Section Header */}
+      <div className="flex flex-col items-start gap-3 mb-14">
+        <div className="flex items-center gap-3">
+          <span className="font-mono text-base font-bold text-[#dfff52]">04</span>
+          <span className="h-px w-8 bg-[#dfff52]/40" />
+          <span className="font-mono text-xs uppercase tracking-widest text-zinc-400">
+            Open Source Ecosystem Contributions
+          </span>
         </div>
-        <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white">
-          Aportes Comunitarios & Software Libre
+        <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#f2efe8]">
+          Aportes Comunitarios &amp; Software Libre
         </h2>
-        <p className="max-w-2xl text-sm sm:text-base text-zinc-400 font-sans">
+        <p className="max-w-2xl text-sm sm:text-base text-zinc-400 font-sans leading-relaxed">
           Pull Requests aprobados y correcciones críticas en la Odoo Community Association (OCA), la suite oficial del protocolo Agent-to-Agent y sistemas operativos Linux.
         </p>
       </div>
@@ -36,20 +39,23 @@ export const OpenSourceWallSection: React.FC = () => {
             transition={{ duration: 0.4, delay: idx * 0.08 }}
             onMouseEnter={playHover}
           >
-            <BentoCard className="h-full flex flex-col justify-between border-white/10 bg-[#09090f]/90 p-6 transition-all duration-200 hover:border-emerald-500/30">
+            <BentoCard
+              spotlightColor="rgba(223, 255, 82, 0.12)"
+              className="h-full flex flex-col justify-between border-white/10 bg-[#0b0c10] p-6 sm:p-7 transition-all duration-200 hover:border-[#dfff52]/40"
+            >
               {/* Header Info */}
               <div>
                 <div className="flex items-center justify-between gap-2 mb-3">
                   <div className="flex items-center gap-1.5 font-mono text-xs text-zinc-400">
-                    <GitMerge className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+                    <GitMerge className="h-3.5 w-3.5 text-[#dfff52] shrink-0" />
                     <span className="truncate font-semibold text-zinc-300">{item.org}</span>
                   </div>
-                  <Badge variant={item.badgeColor}>
+                  <Badge variant={item.badgeColor === 'emerald' ? 'lime' : item.badgeColor}>
                     {item.type}
                   </Badge>
                 </div>
 
-                <h3 className="font-display text-lg font-bold text-white tracking-tight mb-2">
+                <h3 className="font-display text-lg font-bold text-[#f2efe8] tracking-tight mb-2 group-hover:text-[#dfff52] transition-colors">
                   {item.title}
                 </h3>
 
@@ -57,9 +63,9 @@ export const OpenSourceWallSection: React.FC = () => {
                   {item.description}
                 </p>
 
-                <div className="rounded-lg border border-white/5 bg-white/[0.02] p-2.5 mb-4">
-                  <div className="text-[11px] font-mono font-semibold uppercase tracking-wider text-emerald-400 flex items-center gap-1 mb-1">
-                    <ShieldCheck className="h-3 w-3" />
+                <div className="rounded-xl border border-white/5 bg-[#060709] p-3 mb-4">
+                  <div className="text-[11px] font-mono font-semibold uppercase tracking-wider text-[#dfff52] flex items-center gap-1.5 mb-1">
+                    <ShieldCheck className="h-3.5 w-3.5" />
                     <span>Impacto de Ingeniería:</span>
                   </div>
                   <p className="text-[11px] text-zinc-400 font-sans leading-relaxed">
@@ -74,7 +80,7 @@ export const OpenSourceWallSection: React.FC = () => {
                   {item.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="rounded-md border border-white/5 bg-white/[0.03] px-2 py-0.5 font-mono text-[10px] text-zinc-400"
+                      className="rounded-md border border-white/10 bg-white/5 px-2 py-0.5 font-mono text-[10px] text-zinc-400"
                     >
                       {tech}
                     </span>
@@ -84,15 +90,15 @@ export const OpenSourceWallSection: React.FC = () => {
                 {/* Metrics Row */}
                 <div className="grid grid-cols-3 gap-2 border-t border-white/10 pt-3 mb-4">
                   {item.metrics.map((m, mIdx) => (
-                    <div key={mIdx} className="text-center">
-                      <div className="text-[9px] font-mono text-zinc-500 uppercase">{m.label}</div>
-                      <div className="text-[11px] font-mono font-bold text-zinc-200 truncate">{m.value}</div>
+                    <div key={mIdx} className="text-center bg-white/[0.02] p-1.5 rounded-lg border border-white/5">
+                      <div className="text-[9px] font-mono text-zinc-400 uppercase">{m.label}</div>
+                      <div className="text-[11px] font-mono font-bold text-[#f2efe8] truncate mt-0.5">{m.value}</div>
                     </div>
                   ))}
                 </div>
 
                 {/* Upstream Links */}
-                <div className="flex items-center justify-between border-t border-white/5 pt-3">
+                <div className="flex items-center justify-between border-t border-white/10 pt-3">
                   <a
                     href={item.repoUrl}
                     target="_blank"
@@ -103,15 +109,25 @@ export const OpenSourceWallSection: React.FC = () => {
                     <ExternalLink className="h-3 w-3" />
                   </a>
 
-                  {item.pullRequestUrl && (
+                  {item.pullRequestUrl ? (
                     <a
                       href={item.pullRequestUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 font-mono text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition-colors"
+                      className="inline-flex items-center gap-1 font-mono text-xs font-semibold text-[#dfff52] hover:underline transition-colors"
                     >
-                      <span>Ver PR / Issue</span>
-                      <ExternalLink className="h-3 w-3" />
+                      <span>Ver PR Upstream</span>
+                      <ArrowUpRight className="h-3 w-3" />
+                    </a>
+                  ) : (
+                    <a
+                      href={item.repoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 font-mono text-xs font-semibold text-[#dfff52] hover:underline transition-colors"
+                    >
+                      <span>Ver Repositorio</span>
+                      <ArrowUpRight className="h-3 w-3" />
                     </a>
                   )}
                 </div>

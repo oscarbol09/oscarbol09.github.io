@@ -1,42 +1,40 @@
 import React from 'react';
-import { LiquidCanvasBackground } from './components/background/LiquidCanvasBackground';
+import { ArchitecturalCanvasBackground } from './components/background/ArchitecturalCanvasBackground';
 import { Navbar } from './components/sections/Navbar';
 import { HeroSection } from './components/sections/HeroSection';
-import { ArchitectureExplorerSection } from './components/sections/ArchitectureExplorerSection';
+import { ProfilePhilosophySection } from './components/sections/ProfilePhilosophySection';
 import { BentoProjectsSection } from './components/sections/BentoProjectsSection';
+import { ArchitectureExplorerSection } from './components/sections/ArchitectureExplorerSection';
 import { OpenSourceWallSection } from './components/sections/OpenSourceWallSection';
 import { TerminalSection } from './components/sections/TerminalSection';
 import { TechRadarSection } from './components/sections/TechRadarSection';
 import { QualityMetricsSection } from './components/sections/QualityMetricsSection';
-import { ExperienceTimelineSection } from './components/sections/ExperienceTimelineSection';
-import { EngineeringStandardsSection } from './components/sections/EngineeringStandardsSection';
 import { ContactSection } from './components/sections/ContactSection';
 import { Footer } from './components/sections/Footer';
 
 export const App: React.FC = () => {
   return (
-    <div className="relative min-h-screen w-full bg-[#040406] text-zinc-100 selection:bg-cyan-500/30 selection:text-cyan-200">
-      {/* 60 FPS Organic Fluid Canvas Background */}
-      <LiquidCanvasBackground />
+    <div className="relative min-h-screen w-full bg-[#060709] text-zinc-100 selection:bg-[#dfff52] selection:text-[#060709]">
+      {/* 60 FPS Architectural Background (High-craft dot matrix & fine vectors) */}
+      <ArchitecturalCanvasBackground />
 
-      {/* Floating Navigation Pill */}
+      {/* Editorial Fixed Navbar with Live Clock & Direct CV Download */}
       <Navbar />
 
-      {/* Main Content Sections (Linear/Technical Hierarchy) */}
+      {/* Main Content Sections (High-Craft Editorial Hierarchy) */}
       <main className="relative z-10 flex flex-col items-center justify-start w-full">
         <HeroSection />
-        <ArchitectureExplorerSection />
+        <ProfilePhilosophySection />
         <BentoProjectsSection />
+        <ArchitectureExplorerSection />
         <OpenSourceWallSection />
         <TerminalSection />
         <TechRadarSection />
         <QualityMetricsSection />
-        <ExperienceTimelineSection />
-        <EngineeringStandardsSection />
         <ContactSection />
       </main>
 
-      {/* Footer */}
+      {/* Technical Footer */}
       <Footer />
     </div>
   );
